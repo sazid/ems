@@ -1,19 +1,38 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <h1>Hello!</h1>
+    <el-container>
+      <el-header>
+        <main-nav-menu :activeIndex="activeIndex"/> 
+      </el-header>
+
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import MainNavMenu from '@/components/MainNavMenu.vue';
 
 export default {
   name: 'home',
   components: {
-    // HelloWorld
-  }
+    MainNavMenu
+  },
+  data() {
+    return {
+      activeIndex: 'home',
+    };
+  },
+  watch: {
+    '$route'(to, from) {
+      this.activeIndex = to.name;
+    },
+  },
+  created() {
+    this.activeIndex = this.$route.name;
+  },
 }
 </script>
