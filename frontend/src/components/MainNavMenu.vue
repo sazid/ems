@@ -47,7 +47,8 @@ export default {
     // eslint-disable-next-line no-unused-vars
     handleSelect(key, keyPath) {
       if (key === 'logout') {
-        window.location = this.logoutUrl;
+        // window.location = this.logoutUrl;
+        // this.$router.push({ name: 'login' });
       }
     },
   },

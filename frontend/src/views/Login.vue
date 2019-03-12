@@ -1,12 +1,6 @@
 <template>
   <div id="login">
     <el-container>
-      <el-header>
-        <div id="header">
-          <!-- <h1 style="text-align: center; font-size: 1.6em;">Exam Management System</h1> -->
-        </div>
-      </el-header>
-      
       <el-main>
         <el-row
           type="flex"
@@ -59,15 +53,7 @@ export default {
 
 <style>
 .login-form {
-  margin-top: 100px;
-}
-
-.header {
-  position: fixed;
-  text-align: center;
-  left: 0;
-  top: 0;
-  width: 100%;
+  margin-top: 200px;
 }
 
 .footer {
