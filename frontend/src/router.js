@@ -28,7 +28,12 @@ export default new Router({
         {
           path: 'student',
           name: 'student',
-          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student.vue')      
+          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student.vue'),    
+        },
+        {
+          path: 'exam',
+          name: 'exam',
+          component: () => import(/* webpackChunkName: "user_exam" */ './views/Exam.vue'),    
         },
         {
           path: 'about',
@@ -37,6 +42,16 @@ export default new Router({
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        },
+        {
+          path: 'create_user',
+          name: 'create_user',
+          component: () => import(/* webpackChunkName: "create_user" */ './views/user/CreateUser.vue')
+        },
+        {
+          path: 'create_question',
+          name: 'create_question',
+          component: () => import(/* webpackChunkName: "create_question" */ './views/CreateQuestion.vue')
         }
       ],
     },

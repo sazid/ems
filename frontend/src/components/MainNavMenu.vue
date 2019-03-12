@@ -25,7 +25,7 @@
           <el-menu-item index="7-1" disabled>
             Profile
           </el-menu-item>
-          <el-menu-item index="logout">
+          <el-menu-item index="7-2" :route="{ name: 'login' }" >
             Logout
           </el-menu-item>
       </el-submenu>

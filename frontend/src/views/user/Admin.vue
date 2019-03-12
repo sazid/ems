@@ -1,7 +1,10 @@
 <template>
   <div id="admin">
-    <h3>Welcome, Admin!</h3>
-    <el-row :gutter="20">
+    <h1>Admin view</h1>
+
+    <el-button @click="$router.push({ name: 'create_user' })" type="primary" size="medium">Create User</el-button>
+    
+    <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="8">
         <div class="grid-content bg-purple">
           <el-card class="box-card">
@@ -20,7 +23,9 @@
           <el-card class="box-card">
             <div slot="header">
               <span>Faculties</span>
-              <el-button style="float: right; padding: 3px 0" type="text">Manage Faculties</el-button>
+              <el-button
+                style="float: right; padding: 3px 0"
+                type="text">Manage Faculties</el-button>
             </div>
             <div v-for="o in 5" :key="o" class="text item">
               {{'List item ' + o }}

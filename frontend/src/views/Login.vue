@@ -22,6 +22,7 @@
                 type="password" />
 
                 <el-button
+                  @click="login"
                   type="primary"
                   style="margin-top: 15px">Login</el-button>
             </div>
@@ -47,13 +48,30 @@ export default {
         username: '',
         password: ''
     };
-  }
+  },
+  methods: {
+    login() {
+      if (this.username === 'admin' && this.password === 'admin') {
+        this.$message({
+          message: 'Login successful',
+          type: 'success'
+        });
+
+        setTimeout(() => this.$router.push({ name: 'admin' }), 1000);
+      } else {
+        this.$message({
+          message: 'Failed to login',
+          type: 'error'
+        });
+      }
+    }
+  },
 }
 </script>
 
 <style>
 .login-form {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 .footer {
