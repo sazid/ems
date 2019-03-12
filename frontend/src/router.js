@@ -10,10 +10,25 @@ export default new Router({
       path: '/',
       component: Home,
       children: [
+        // {
+        //   path: '',
+        //   name: 'home',
+        //   component: () => import(/* webpackChunkName: "home" */ './views/user/Admin.vue')      
+        // },
         {
           path: '',
-          name: 'home',
-          component: () => import(/* webpackChunkName: "admin" */ './views/user/Admin.vue')      
+          name: 'admin',
+          component: () => import(/* webpackChunkName: "user_admin" */ './views/user/Admin.vue')      
+        },
+        {
+          path: 'faculty',
+          name: 'faculty',
+          component: () => import(/* webpackChunkName: "user_faculty" */ './views/user/Faculty.vue')      
+        },
+        {
+          path: 'student',
+          name: 'student',
+          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student.vue')      
         },
         {
           path: 'about',
@@ -25,5 +40,10 @@ export default new Router({
         }
       ],
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+    }
   ]
 });
