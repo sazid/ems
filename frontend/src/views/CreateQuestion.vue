@@ -22,7 +22,7 @@
           </div>
 
           <div v-if="type == 'MCQ'" style="margin-top: 15px">
-            <el-input v-for="o in mcq_options" :key="o" :placeholder="'Option ' + o" v-model="title" style="margin-top: 5px">
+            <el-input v-for="o in mcq_options" :key="o" :placeholder="'Option ' + o" v-model="radio" style="margin-top: 5px">
               <template slot="prepend">{{ o }}</template>
             </el-input>
 

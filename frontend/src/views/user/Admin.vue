@@ -1,7 +1,5 @@
 <template>
   <div id="admin">
-    <h1>Admin view</h1>
-
     <el-button @click="$router.push({ name: 'create_user' })" type="primary" size="medium">Create User</el-button>
     
     <el-row :gutter="20" style="margin-top: 15px">

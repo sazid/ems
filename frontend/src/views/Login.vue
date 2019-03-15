@@ -13,12 +13,14 @@
               <el-input
                 style="margin-top: 15px;"
                 placeholder="Username"
+                @keyup.enter.native="login"
                 v-model="username" />
               
               <el-input
                 style="margin-top: 15px"
                 placeholder="Password"
                 v-model="password"
+                @keyup.enter.native="login"
                 type="password" />
 
                 <el-button
