@@ -89,7 +89,6 @@ export default {
                 routeName = 'admin';
             }
 
-            console.log(routeName);
             this.$router.push({ name: routeName });
           }, 1000);
         } else {

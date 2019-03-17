@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import store from '@/store';
+
 export default {
   data() {
     return {
@@ -41,6 +43,13 @@ export default {
   methods: {
     exam() {
       this.$router.push({ name: 'exam' });
+    }
+  },
+  beforeRouteEnter(to, from , next) {
+    if (store.state.user.type != 'Student') {
+      next(false);
+    } else {
+      next();
     }
   },
 }

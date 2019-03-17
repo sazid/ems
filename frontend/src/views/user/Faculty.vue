@@ -44,8 +44,16 @@
 </template>
 
 <script>
-export default {
+import store from '@/store';
 
+export default {
+  beforeRouteEnter(to, from , next) {
+    if (store.state.user.type != 'Faculty') {
+      next(false);
+    } else {
+      next();
+    }
+  },
 }
 </script>
 

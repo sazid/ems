@@ -18,9 +18,6 @@
       <el-menu-item index="about" :route="{ name: 'about' }">
         About
       </el-menu-item>
-      <el-menu-item index="type" :disabled="true">
-        {{ $store.state.user.type }}
-      </el-menu-item>
       <el-submenu index="8" style="float: right;">
         <template slot="title">
           {{ $store.state.user.name }}
