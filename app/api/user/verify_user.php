@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 header('Content-Type: application/json;charset=utf-8');
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = htmlspecialchars($_POST['username']);
+$password = htmlspecialchars($_POST['password']);
 
 $data = [
     'success' => false

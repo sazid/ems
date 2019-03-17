@@ -5,8 +5,6 @@ header('Content-Type: application/json;charset=utf-8');
 // If user is logged in, then send the user details
 // otherwise return false
 
-$username = '';
-
 $data = [
     'loggedIn' => false,
     'name' => '',

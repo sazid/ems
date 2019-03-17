@@ -23,4 +23,4 @@
     <email>alamin@aiub.edu</email>
     <type>Faculty</type>
   </user>
-</users>
+<user><name>Another Man</name><username>asdfasdf</username><password>asdfasdf</password><email>Sdfasdf@asdfasdf.com</email><type>Student</type></user></users>
