@@ -44,6 +44,9 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios';
+import qs from 'qs';
+
 export default {
   data() {
     return {
@@ -53,20 +56,31 @@ export default {
   },
   methods: {
     login() {
-      if (this.username === 'admin' && this.password === 'admin') {
-        this.$message({
-          message: 'Login successful',
-          type: 'success'
-        });
+      axios.post('/ems/app/api/user/verify_user.php', qs.stringify({
+        username: this.username,
+        password: this.password
+      })).then((data) => {
+        if (data.data.success) {
+          this.$store.commit('SET_LOGGED_IN_STATUS', true);
+          this.$store.commit('SET_USER', {
+            name: data.data.name[0],
+            type: data.data.type[0],
+          });
 
-        setTimeout(() => this.$router.push({ name: 'admin' }), 1000);
-      } else {
-        this.$message({
-          message: 'Failed to login',
-          type: 'error'
-        });
-      }
-    }
+          this.$message({
+            message: 'Login successful',
+            type: 'success'
+          });
+
+          setTimeout(() => this.$router.push({ name: 'admin' }), 1000);
+        } else {
+          this.$message({
+            message: 'Failed to login',
+            type: 'error'
+         });
+        }
+      });
+    },
   },
 }
 </script>
