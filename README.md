@@ -1,5 +1,13 @@
 # Exam Management System
 
+Demo usernames and passwords
+
+| Username | Password |
+|----------|----------|
+| admin    | admin    |
+| sazid    | sazid    |
+| alamin   | alamin   |
+
 ...
 
 ## Build Instructions
