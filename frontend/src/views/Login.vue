@@ -61,15 +61,7 @@ export default {
         username: this.username,
         password: this.password
       })).then((data) => {
-        console.log(data.data);
-        
         if (data.data.success) {
-          this.$store.commit('SET_LOGGED_IN_STATUS', true);
-          this.$store.commit('SET_USER', {
-            name: data.data.name,
-            type: data.data.type,
-          });
-
           this.$message({
             message: 'Login successful',
             type: 'success'
