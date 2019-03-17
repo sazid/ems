@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import store from '@/store';
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+export const baseUrlForRoute = '/ems/app/api';
+
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -62,3 +65,25 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('getUserSession')
+    .then(_ => {
+      if (store.state.loggedIn) {
+        if (to.name == 'login')
+          next({ path: '/' });
+        else
+          next();
+      } else {
+        if (to.name != 'login')
+          next({ name: 'login' });
+        else
+          next();
+      }
+    })
+    .catch(_ => {
+      next({ name: 'login' });
+    });
+});
+
+export default router;

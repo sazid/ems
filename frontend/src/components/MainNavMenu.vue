@@ -18,14 +18,17 @@
       <el-menu-item index="about" :route="{ name: 'about' }">
         About
       </el-menu-item>
+      <el-menu-item index="type" :disabled="true">
+        {{ $store.state.user.type }}
+      </el-menu-item>
       <el-submenu index="8" style="float: right;">
         <template slot="title">
-          User
+          {{ $store.state.user.name }}
         </template>
           <el-menu-item index="7-1" disabled>
             Profile
           </el-menu-item>
-          <el-menu-item index="7-2" :route="{ name: 'login' }" >
+          <el-menu-item index="logout" >
             Logout
           </el-menu-item>
       </el-submenu>
@@ -33,6 +36,8 @@
 </template>
 
 <script>
+import { baseUrlForRoute } from '@/router';
+
 export default {
   name: 'MainNavMenu',
   props: {
@@ -40,15 +45,14 @@ export default {
   },
   data() {
     return {
-      logoutUrl: `${process.env.BASE_URL}/logout_user`,
+      logoutUrl: `${baseUrlForRoute}/user/logout_user.php`,
     };
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
     handleSelect(key, keyPath) {
       if (key === 'logout') {
-        // window.location = this.logoutUrl;
-        // this.$router.push({ name: 'login' });
+        window.location = this.logoutUrl;
       }
     },
   },
