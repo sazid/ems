@@ -87,14 +87,12 @@ export default {
         type: this.type,
         name: this.name,
       })).then((response) => {
-        console.log(response.data);
-        
         this.$message({
           message: response.data.message,
           type: response.data.success ? 'success' : 'error',
         });
 
-        // Go back to previous page
+        // Go back to previous page if successful
         if (response.data.success)
           this.$router.go(-1);
       });

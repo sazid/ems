@@ -6,13 +6,13 @@
     mode="horizontal"
     menu-trigger="click"
     @select="handleSelect">
-      <el-menu-item index="admin" :route="{ name: 'admin' }">
+      <el-menu-item v-if="userType == 'Admin'" index="admin" :route="{ name: 'admin' }">
         Admin
       </el-menu-item>
-      <el-menu-item index="faculty" :route="{ name: 'faculty' }">
+      <el-menu-item v-if="userType == 'Faculty'" index="faculty" :route="{ name: 'faculty' }">
         Faculty
       </el-menu-item>
-      <el-menu-item index="student" :route="{ name: 'student' }">
+      <el-menu-item v-if="userType == 'Student'" index="student" :route="{ name: 'student' }">
         Student
       </el-menu-item>
       <el-menu-item index="about" :route="{ name: 'about' }">
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       logoutUrl: `${baseUrlForRoute}/user/logout_user.php`,
+      userType: this.$store.state.user.type,
     };
   },
   methods: {

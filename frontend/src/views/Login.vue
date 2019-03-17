@@ -60,14 +60,38 @@ export default {
       axios.post(`${baseUrlForRoute}/user/verify_user.php`, qs.stringify({
         username: this.username,
         password: this.password
-      })).then((data) => {
-        if (data.data.success) {
+      })).then((response) => {
+        let data = response.data;
+
+        if (data.success) {
           this.$message({
             message: 'Login successful',
             type: 'success'
           });
 
-          setTimeout(() => this.$router.push({ name: 'admin' }), 1000);
+          setTimeout(() => {
+            let routeName = '';
+
+            switch(data['userType']) {
+              case 'Admin':
+                routeName = 'admin';
+                break;
+
+              case 'Faculty':
+                routeName = 'faculty';
+                break;
+
+              case 'Student':
+                routeName = 'student';
+                break;
+
+              default:
+                routeName = 'admin';
+            }
+
+            console.log(routeName);
+            this.$router.push({ name: routeName });
+          }, 1000);
         } else {
           this.$message({
             message: 'Failed to login',

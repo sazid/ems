@@ -11,7 +11,8 @@ $username = htmlspecialchars($_POST['username']);
 $password = htmlspecialchars($_POST['password']);
 
 $data = [
-    'success' => false
+    'success' => false,
+    'userType' => ''
 ];
 
 $users= simplexml_load_file("users.xml") or die("Error: Failed to load users.");
@@ -21,6 +22,8 @@ $users= simplexml_load_file("users.xml") or die("Error: Failed to load users.");
 foreach($users->children() as $user) {
     if ($user->username == $username and $user->password == $password) {
         $data['success'] = true;
+        $data['userType'] = (string)$user->type;
+
         $_SESSION['loggedIn'] = true;
         $_SESSION['username'] = (string)$user->username;
         break;

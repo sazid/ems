@@ -12,7 +12,7 @@
 5. Select `build` option
 6. Click on **Parameters** button and set `Output directory` to `../dist`.
     Also enable `Watch for changes` option at the bottom.
-7. Save and click on **Run Task** button to buld the project.
+7. Save and click on **Run Task** button to build the project.
 8. Navigate to `https://localhost/ems/` to view the project
 
 ## Developer
