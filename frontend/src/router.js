@@ -63,7 +63,7 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   store.dispatch('getUserSession')
     .then(_ => {
       if (store.state.loggedIn) {
