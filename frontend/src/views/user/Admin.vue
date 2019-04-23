@@ -53,7 +53,7 @@ import store from '@/store';
 
 export default {
   beforeRouteEnter(to, from , next) {
-    if (store.state.user.type != 'Admin') {
+    if (store.state.user.type != 'admin') {
       next(false);
     } else {
       next();

@@ -1,4 +1,6 @@
 <?php
+require_once('../../data/User.php');
+
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -15,19 +17,14 @@ $data = [
     'userType' => ''
 ];
 
-$users= simplexml_load_file("users.xml") or die("Error: Failed to load users.");
+$users = User::getUserByUsernamePassword($username, $password);
 
-// Set the session variables here so that verify_session.php can be used to load
-// the current user's info as required
-foreach($users->children() as $user) {
-    if ($user->username == $username and $user->password == $password) {
-        $data['success'] = true;
-        $data['userType'] = (string)$user->type;
+foreach($users->fetchAll() as $user) {
+    $data['success'] = true;
+    $data['userType'] = $user['type'];
 
-        $_SESSION['loggedIn'] = true;
-        $_SESSION['username'] = (string)$user->username;
-        break;
-    }
+    $_SESSION['loggedIn'] = true;
+    $_SESSION['username'] = $user['username'];
 }
 
 echo json_encode($data);

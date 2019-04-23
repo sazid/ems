@@ -73,15 +73,15 @@ export default {
             let routeName = '';
 
             switch(data['userType']) {
-              case 'Admin':
+              case 'admin':
                 routeName = 'admin';
                 break;
 
-              case 'Faculty':
+              case 'faculty':
                 routeName = 'faculty';
                 break;
 
-              case 'Student':
+              case 'student':
                 routeName = 'student';
                 break;
 

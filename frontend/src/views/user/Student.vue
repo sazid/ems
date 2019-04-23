@@ -46,7 +46,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from , next) {
-    if (store.state.user.type != 'Student') {
+    if (store.state.user.type != 'student') {
       next(false);
     } else {
       next();
