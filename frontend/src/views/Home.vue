@@ -14,7 +14,7 @@
 
 <script>
 // @ is an alias to /src
-import MainNavMenu from '@/components/MainNavMenu.vue';
+import MainNavMenu from '@/components/Menu/MainNavMenu.vue';
 
 export default {
   name: 'home',

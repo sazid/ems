@@ -6,24 +6,21 @@
     mode="horizontal"
     menu-trigger="click"
     @select="handleSelect">
-      <el-menu-item v-if="userType == 'Admin'" index="admin" :route="{ name: 'admin' }">
-        Admin
-      </el-menu-item>
-      <el-menu-item v-if="userType == 'Faculty'" index="faculty" :route="{ name: 'faculty' }">
-        Faculty
-      </el-menu-item>
-      <el-menu-item v-if="userType == 'Student'" index="student" :route="{ name: 'student' }">
-        Student
-      </el-menu-item>
-      <el-menu-item index="about" :route="{ name: 'about' }">
-        About
-      </el-menu-item>
+      <admin-menu v-if="userType == 'admin'"></admin-menu>
+
+      <faculty-menu v-if="userType == 'faculty'"></faculty-menu>
+      
+      <student-menu v-if="userType == 'student'"></student-menu>
+
       <el-submenu index="8" style="float: right;">
         <template slot="title">
           {{ $store.state.user.name }}
         </template>
           <el-menu-item index="7-1" disabled>
             Profile
+          </el-menu-item>
+          <el-menu-item index="about" :route="{ name: 'about' }">
+            About
           </el-menu-item>
           <el-menu-item index="logout" >
             Logout
@@ -34,11 +31,19 @@
 
 <script>
 import { baseUrlForRoute } from '@/router';
+import AdminMenu from '@/components/Menu/AdminMenu.vue';
+import StudentMenu from '@/components/Menu/StudentMenu.vue';
+import FacultyMenu from '@/components/Menu/FacultyMenu.vue';
 
 export default {
   name: 'MainNavMenu',
   props: {
     activeIndex: String,
+  },
+  components: {
+    AdminMenu,
+    FacultyMenu,
+    StudentMenu,
   },
   data() {
     return {
@@ -47,8 +52,7 @@ export default {
     };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    handleSelect(key, keyPath) {
+    handleSelect(key, _keyPath) {
       if (key === 'logout') {
         window.location = this.logoutUrl;
       }
