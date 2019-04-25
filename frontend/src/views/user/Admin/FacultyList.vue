@@ -71,6 +71,7 @@ export default {
     createUser() {
       this.$router.push({ name: 'admin_save_user' });
     },
+    
     // q - Search query
     getUsers(q = '') {
       axios.get(`${baseUrlForRoute}/admin/get_users.php`, {
@@ -92,6 +93,8 @@ export default {
   },
   watch: {
     search(newVal, oldVal) {
+      // This should be "debounced" so that the
+      // server does not get flooded with requests for every character
       this.getUsers(newVal);
     },
   }

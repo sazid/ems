@@ -45,6 +45,15 @@ class DbManager {
         return $this->query($sql);
     }
 
+    // Select columns from a given table name
+    function selectCols(string $table_name, string $column_str, string $where_query = null) {
+        $sql = "SELECT $column_str FROM $table_name";
+        if ($where_query != null)
+            $sql .= " WHERE $where_query";
+
+        return $this->query($sql);
+    }
+
     // Delete all rows matching the where query for the given table
     function delete(string $table_name, string $where_query = null) {
         $sql = "DELETE FROM $table_name";

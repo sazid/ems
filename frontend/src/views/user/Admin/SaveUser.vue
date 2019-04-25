@@ -66,6 +66,7 @@ export default {
   created() {
     if (this.user_prop) {
       this.user = this.user_prop;
+      this.user.active = this.user.active == 0 ? false : true;
     }
   },
   data() {
