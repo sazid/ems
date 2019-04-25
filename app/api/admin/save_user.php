@@ -33,6 +33,7 @@ function verify_email($email) {
     return $result;
 }
 
+$id = htmlspecialchars( $_POST['id']);
 $username = htmlspecialchars($_POST['username']);
 $password = htmlspecialchars($_POST['password']);
 $email = htmlspecialchars($_POST['email']);
@@ -50,13 +51,17 @@ if (strlen($email) > 0 and !verify_email($email)) {
     $data['message'] = 'Invalid email';
 } else {
     try {
-        User::insertUser($username, $password, $type, $email, $active, $name);
+        if ($id == -1) {
+            User::insertUser($username, $password, $type, $email, $active, $name);
+        } else {
+            User::updateUser($id, $username, $password, $type, $email, $active, $name);
+        }
 
         $data['success'] = true;
-        $data['message'] = 'User added successfully.';
+        $data['message'] = 'User saved successfully.';
     } catch (PDOException $exc) {
         $data['success'] = false;
-        $data['message'] = "Failed to add user.";
+        $data['message'] = "Failed to save user.$exc";
     }
 }
 

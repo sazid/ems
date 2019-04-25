@@ -18,6 +18,7 @@ $users = User::getUsers($q, $type);
 
 $data['success'] = true;
 foreach ($users->fetchAll() as $user) {
+    $user['password'] = '';
     array_push($data['users'], $user);
 }
 

@@ -127,11 +127,11 @@ export default {
         this.err('Username cannot be less than 3 characters');
         return false;
       }
-      else if (!this.user.password || !this.user.password2 || this.user.password.length < 5) {
+      else if (!this.user_prop && (!this.user.password || !this.user.password2 || this.user.password.length < 5)) {
         this.err('Passwords cannot be less than 5 characters');
         return false;
       }
-      else if (this.user.password !== this.user.password2) {
+      else if (!this.user_prop && (this.user.password !== this.user.password2)) {
         this.err('Passwords do not match');
         return false;
       }
