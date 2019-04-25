@@ -29,16 +29,26 @@ const router = new Router({
           name: 'admin_faculty_list',
           component: () => import(/* webpackChunkName: "admin_faculty_list" */ './views/user/Admin/FacultyList.vue')
         },
+        {
+          path: 'admin/student_list',
+          name: 'admin_student_list',
+          component: () => import(/* webpackChunkName: "admin_student_list" */ './views/user/Admin/StudentList.vue')
+        },
+        {
+          path: 'admin/course_list',
+          name: 'admin_course_list',
+          component: () => import(/* webpackChunkName: "admin_course_list" */ './views/user/Admin/CourseList.vue')
+        },
 
         {
           path: 'faculty',
           name: 'faculty',
-          component: () => import(/* webpackChunkName: "user_faculty" */ './views/user/Faculty.vue')      
+          component: () => import(/* webpackChunkName: "user_faculty" */ './views/user/Faculty/Faculty.vue')      
         },
         {
           path: 'student',
           name: 'student',
-          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student.vue'),    
+          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student/Student.vue'),    
         },
         {
           path: 'exam',
