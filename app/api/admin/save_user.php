@@ -56,7 +56,7 @@ if (strlen($email) > 0 and !verify_email($email)) {
         $data['message'] = 'User added successfully.';
     } catch (PDOException $exc) {
         $data['success'] = false;
-        $data['message'] = "Failed to add user.\n$exc";
+        $data['message'] = "Failed to add user.";
     }
 }
 

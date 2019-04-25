@@ -71,6 +71,7 @@ export default {
   data() {
     return {
       user: {
+        id: -1,
         username: '',
         password: '',
         password2: '',
@@ -93,7 +94,8 @@ export default {
     saveUser() {
       if (!this.validateFields()) return;
       
-      axios.post(`${baseUrlForRoute}/admin/create_user.php`, qs.stringify({
+      axios.post(`${baseUrlForRoute}/admin/save_user.php`, qs.stringify({
+        id: this.user.id,
         username: this.user.username,
         password: this.user.password,
         email: this.user.email,

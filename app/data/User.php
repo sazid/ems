@@ -12,15 +12,16 @@ class User {
         return $db->select('user', "username='$username' AND password='$password' AND active='1'");
     }
 
-    public static function getUsers(string $filter = null) {
+    public static function getUsers(string $filter, string $type) {
         $db = new DbManager();
-        if ($filter != null) {
+        if ($filter != null or !empty($filter)) {
             return $db->select('user',
-                "username LIKE '%$filter%'
+                "(username LIKE '%$filter%'
                 OR name LIKE '%$filter%'
-                OR email LIKE '%$filter%'");
+                OR email LIKE '%$filter%')
+                AND type='$type'");
         }
-        return $db->select('user');
+        return $db->select('user', "type='$type'");
     }
 
     public static function insertUser($username, $password, $type, $email, $active, $name) {

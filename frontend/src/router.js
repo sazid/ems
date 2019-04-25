@@ -16,8 +16,20 @@ const router = new Router({
         {
           path: '',
           name: 'admin',
-          component: () => import(/* webpackChunkName: "user_admin" */ './views/user/Admin.vue')      
+          component: () => import(/* webpackChunkName: "user_admin" */ './views/user/Admin/Admin.vue')   
         },
+        {
+          path: 'admin/save_user',
+          name: 'admin_save_user',
+          props: true,
+          component: () => import(/* webpackChunkName: "admin_save_user" */ './views/user/Admin/SaveUser.vue')
+        },
+        {
+          path: 'admin/faculty_list',
+          name: 'admin_faculty_list',
+          component: () => import(/* webpackChunkName: "admin_faculty_list" */ './views/user/Admin/FacultyList.vue')
+        },
+
         {
           path: 'faculty',
           name: 'faculty',
@@ -37,11 +49,6 @@ const router = new Router({
           path: 'about',
           name: 'about',
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-        },
-        {
-          path: 'admin/create_user',
-          name: 'create_user',
-          component: () => import(/* webpackChunkName: "create_user" */ './views/user/CreateUser.vue')
         },
         {
           path: 'create_question',
