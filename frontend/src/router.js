@@ -13,11 +13,6 @@ const router = new Router({
       path: '/',
       component: Home,
       children: [
-        // {
-        //   path: '',
-        //   name: 'home',
-        //   component: () => import(/* webpackChunkName: "home" */ './views/user/Admin.vue')      
-        // },
         {
           path: '',
           name: 'admin',
@@ -44,7 +39,7 @@ const router = new Router({
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
         },
         {
-          path: 'create_user',
+          path: 'admin/create_user',
           name: 'create_user',
           component: () => import(/* webpackChunkName: "create_user" */ './views/user/CreateUser.vue')
         },

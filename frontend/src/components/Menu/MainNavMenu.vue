@@ -16,9 +16,9 @@
         <template slot="title">
           {{ $store.state.user.name }}
         </template>
-          <el-menu-item index="7-1" disabled>
+          <!-- <el-menu-item index="7-1" disabled>
             Profile
-          </el-menu-item>
+          </el-menu-item> -->
           <el-menu-item index="about" :route="{ name: 'about' }">
             About
           </el-menu-item>

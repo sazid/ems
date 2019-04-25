@@ -52,4 +52,29 @@ class DbManager {
             $sql .= " WHERE $where_query";
         return $this->exec($sql);
     }
+
+    // Returns a comma-separated string from an array
+    // If $arr is for column names, set $column_name = true
+    function commaSeparatedString(array $arr, bool $column_name = false) : string {
+        $str = "";
+        for ($i = 0; $i < count($arr); ++$i) {
+            if (!$column_name)
+                $arr[$i] = $this->conn->quote($arr[$i]);
+            
+            if ($i == count($arr) - 1)
+                $str .= "{$arr[$i]}";
+            else
+                $str .= "{$arr[$i]}, ";
+        }
+        return $str;
+    }
+
+    function insert(string $table_name, array $column_names, array $column_values) {
+        $column_str = $this->commaSeparatedString($column_names, true);
+        $values_str = $this->commaSeparatedString($column_values);
+
+        $sql = "INSERT INTO $table_name ($column_str) VALUES ($values_str)";
+
+        return $this->exec($sql);
+    }
 }

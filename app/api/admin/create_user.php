@@ -1,4 +1,5 @@
 <?php
+require_once('../../data/User.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     die("Not allowed");
@@ -36,6 +37,7 @@ $username = htmlspecialchars($_POST['username']);
 $password = htmlspecialchars($_POST['password']);
 $email = htmlspecialchars($_POST['email']);
 $type = htmlspecialchars($_POST['type']);
+$active = htmlspecialchars($_POST['active']);
 $name = htmlspecialchars($_POST['name']);
 
 $data = [
@@ -47,20 +49,15 @@ if (strlen($email) > 0 and !verify_email($email)) {
     $data['success'] = false;
     $data['message'] = 'Invalid email';
 } else {
-    $users= simplexml_load_file("../user/users.xml") or die("Error: Failed to load users.");
+    try {
+        User::insertUser($username, $password, $type, $email, $active, $name);
 
-    $user = $users->addChild('user');
-    $user->addChild('name', $name);
-    $user->addChild('username', $username);
-    $user->addChild('password', $password);
-    $user->addChild('email', $email);
-    $user->addChild('type', $type);
-
-    // Save the file
-    $users->asXML("../user/users.xml");
-
-    $data['success'] = true;
-    $data['message'] = 'User added successfully.';
+        $data['success'] = true;
+        $data['message'] = 'User added successfully.';
+    } catch (PDOException $exc) {
+        $data['success'] = false;
+        $data['message'] = "Failed to add user.\n$exc";
+    }
 }
 
 echo json_encode($data);

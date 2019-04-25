@@ -7,32 +7,33 @@
         <div>
           <div>
             <p>Name</p>
-            <el-input placeholder="Name" v-model="name"/>
+            <el-input placeholder="Name" v-model="user.name"/>
           </div>
 
           <div style="margin-top: 15px">
             <p>Username</p>
-            <el-input placeholder="Usesrname" v-model="username"/>
+            <el-input placeholder="Usesrname" v-model="user.username"/>
           </div>
 
           <div style="margin-top: 15px">
             <p>Password</p>
-            <el-input placeholder="Password" v-model="password" type="password"/>
+            <el-input placeholder="Password" v-model="user.password" type="password"/>
           </div>
 
           <div style="margin-top: 15px">
             <p>Confirm Password</p>
-            <el-input placeholder="Confirm Password" v-model="password2" type="password"/>
+            <el-input placeholder="Confirm Password" v-model="user.password2" type="password"/>
           </div>
 
           <div style="margin-top: 15px">
             <p>Email</p>
-            <el-input placeholder="Email" v-model="email" type="email"/>
+            <el-input placeholder="Email" v-model="user.email" type="email"/>
           </div>
 
-          <div style="margin-top: 15px">
-            <p>User type</p>
-            <el-select v-model="type" placeholder="Select">
+          <div style="margin-top: 25px">
+            <el-checkbox v-model="user.active" border>Active</el-checkbox>
+  
+            <el-select v-model="user.type" placeholder="Select">
               <el-option
                 
                 v-for="item in userTypeOptions"
@@ -58,20 +59,32 @@ import axios from '@/plugins/axios';
 import qs from 'qs';
 
 export default {
+  name: 'CreateEditUser',
+  props: {
+    user_prop: Object,
+  },
+  created() {
+    if (this.user_prop) {
+      this.user = this.user_prop;
+    }
+  },
   data() {
     return {
-      username: '',
-      password: '',
-      password2: '',
-      email: '',
-      name: '',
-      type: 'Student',
+      user: {
+        username: '',
+        password: '',
+        password2: '',
+        email: '',
+        name: '',
+        type: 'student',
+        active: true,
+      },
       
       userTypeOptions: [{
-        value: 'Student',
+        value: 'student',
         label: 'Student'
       }, {
-        value: 'Faculty',
+        value: 'faculty',
         label: 'Faculty'
       }],
     };
@@ -81,11 +94,12 @@ export default {
       if (!this.validateFields()) return;
       
       axios.post(`${baseUrlForRoute}/admin/create_user.php`, qs.stringify({
-        username: this.username,
-        password: this.password,
-        email: this.email,
-        type: this.type,
-        name: this.name,
+        username: this.user.username,
+        password: this.user.password,
+        email: this.user.email,
+        type: this.user.type,
+        name: this.user.name,
+        active: this.user.active ? 1 : 0,
       })).then((response) => {
         this.$message({
           message: response.data.message,
@@ -106,19 +120,19 @@ export default {
     },
 
     validateFields() {
-      if (!this.username && this.username.length < 3) {
+      if (!this.user.username && this.user.username.length < 3) {
         this.err('Username cannot be less than 3 characters');
         return false;
       }
-      else if (!this.password || !this.password2 || this.password.length < 5) {
+      else if (!this.user.password || !this.user.password2 || this.user.password.length < 5) {
         this.err('Passwords cannot be less than 5 characters');
         return false;
       }
-      else if (this.password !== this.password2) {
+      else if (this.user.password !== this.user.password2) {
         this.err('Passwords do not match');
         return false;
       }
-      else if (!this.type) {
+      else if (!this.user.type) {
         this.err('User type must be selected');
         return false;
       }
