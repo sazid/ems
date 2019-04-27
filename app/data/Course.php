@@ -17,6 +17,11 @@ class Course {
         return $db->select('course');
     }
 
+    public static function getUsersForCourse($id) {
+        $db = new DbManager();
+        return $db->select('user_course_map', "course_id='$id'");
+    }
+
     public static function insertCourse($name, $code, $active) {
         $db = new DbManager();
         $name = $db->conn->quote($name);

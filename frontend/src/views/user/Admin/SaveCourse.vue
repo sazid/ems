@@ -39,7 +39,7 @@
             </div>
             
             <div>
-              <user-select user-type="faculty"></user-select>
+              <user-select user-type="faculty" :selected-users="course.users"></user-select>
             </div>
           </el-card>
         </div>
@@ -53,7 +53,7 @@
             </div>
             
             <div>
-              <user-select user-type="student"></user-select>
+              <user-select user-type="student" :selected-users="course.users"></user-select>
             </div>
           </el-card>
         </div>
@@ -92,6 +92,7 @@ export default {
         name: '',
         code: '',
         active: '',
+        users: [],
       },
     };
   },

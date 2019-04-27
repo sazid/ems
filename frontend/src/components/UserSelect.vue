@@ -3,7 +3,8 @@
     <el-table
       ref="multipleTable"
       :data="tableData"
-      style="width: 100%">
+      style="width: 100%"
+      @selection-change="handleSelectionChange">
       
       <el-table-column
         type="selection"
@@ -33,6 +34,7 @@ export default {
   name: 'UserSelect',
   props: {
     userType: String,
+    selectedUsers: Array,
   },
   data() {
     return {
@@ -52,6 +54,13 @@ export default {
       })
       .then((response) => {
         this.tableData = response.data.users;
+        this.tableData.forEach(user => {
+          if (this.selectedUsers.includes(user.id)) {
+            setTimeout(() => {
+              this.$refs.multipleTable.toggleRowSelection(user);
+            }, 300);
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -60,6 +69,16 @@ export default {
 
     clearSelection(rows) {
       this.$refs.multipleTable.clearSelection();
+    },
+
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
     },
     
     handleSelectionChange(val) {
