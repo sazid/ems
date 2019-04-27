@@ -3,6 +3,9 @@
     <el-menu-item index="faculty" :route="{ name: 'faculty' }">
       Dashboard
     </el-menu-item>
+    <el-menu-item index="faculty_course_list" :route="{ name: 'faculty_course_list' }">
+      Courses
+    </el-menu-item>
   </fragment>
 </template>
 

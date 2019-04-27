@@ -24,6 +24,7 @@ foreach($users->fetchAll() as $user) {
     $data['userType'] = $user['type'];
 
     $_SESSION['loggedIn'] = true;
+    $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
 }
 

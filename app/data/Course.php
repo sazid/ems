@@ -17,6 +17,18 @@ class Course {
         return $db->select('course');
     }
 
+    public static function getCoursesForUser(string $filter, $user_id) {
+        $db = new DbManager();
+
+        $sql = "SELECT * FROM course WHERE id in (SELECT course_id FROM user_course_map WHERE user_id='$user_id')";        
+        
+        if ($filter != null && !empty($filter)) {
+            $sql .= " AND (name LIKE '%$filter%' OR code LIKE '%$filter%')";
+        }
+
+        return $db->query($sql);
+    }
+
     public static function getUsersForCourse($id) {
         $db = new DbManager();
         return $db->select('user_course_map', "course_id='$id'");

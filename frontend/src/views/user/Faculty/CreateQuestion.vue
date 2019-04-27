@@ -89,8 +89,8 @@ export default {
         title: this.question.title,
         mcq_options: this.question.mcq_options,
         type: this.question.type,
-        course_id: 1,
-        // course_id: this.courseProp.id,
+        // course_id: 1,
+        course_id: this.courseProp.id,
       })).then((response) => {
         this.$message({
           message: response.data.message,
