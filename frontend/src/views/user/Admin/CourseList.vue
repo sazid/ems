@@ -59,16 +59,16 @@ export default {
   methods: {
     handleEdit(index, row) {
       // console.log(index, row);
-    //   this.$router.push({
-    //     name: 'admin_save_user',
-    //     params: {
-    //       user_prop: row,
-    //     }
-    //   });
+      this.$router.push({
+        name: 'admin_save_course',
+        params: {
+          courseProp: row,
+        }
+      });
     },
   
     createCourse() {
-    //   this.$router.push({ name: 'admin_save_user' });
+      this.$router.push({ name: 'admin_save_course' });
     },
     
     // q - Search query

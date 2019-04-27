@@ -51,6 +51,13 @@ const router = new Router({
           component: () => import(/* webpackChunkName: "admin_course_list" */ './views/user/Admin/CourseList.vue'),
           beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
+        {
+          path: 'admin/save_course',
+          name: 'admin_save_course',
+          props: true,
+          component: () => import(/* webpackChunkName: "admin_save_course" */ './views/user/Admin/SaveCourse.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
+        },
 
         {
           path: 'faculty',

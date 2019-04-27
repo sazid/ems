@@ -11,7 +11,7 @@
             
             <div>
               <el-button @click="$router.push({ name: 'admin_save_user' })" type="primary" size="medium">Create User</el-button>
-              <el-button @click="$router.push({ name: 'admin_create_course' })" type="primary" size="medium">Create Course</el-button>
+              <el-button @click="$router.push({ name: 'admin_save_course' })" type="primary" size="medium">Create Course</el-button>
             </div>
           </el-card>
         </div>
