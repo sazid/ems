@@ -1,6 +1,22 @@
 <template>
   <div id="admin">
-    <el-button @click="$router.push({ name: 'create_user' })" type="primary" size="medium">Create User</el-button>
+
+    <el-row :gutter="20" style="margin-top: 15px">
+      <el-col :span="8" :push="8">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header">
+              <span>Quick Actions</span>
+            </div>
+            
+            <div>
+              <el-button @click="$router.push({ name: 'admin_save_user' })" type="primary" size="medium">Create User</el-button>
+              <el-button @click="$router.push({ name: 'admin_create_course' })" type="primary" size="medium">Create Course</el-button>
+            </div>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
     
     <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="8">
@@ -52,13 +68,6 @@
 import store from '@/store';
 
 export default {
-  beforeRouteEnter(to, from , next) {
-    if (store.state.user.type != 'admin') {
-      next(false);
-    } else {
-      next();
-    }
-  },
 }
 </script>
 

@@ -47,13 +47,6 @@
 import store from '@/store';
 
 export default {
-  beforeRouteEnter(to, from , next) {
-    if (store.state.user.type != 'faculty') {
-      next(false);
-    } else {
-      next();
-    }
-  },
 }
 </script>
 

@@ -7,6 +7,13 @@ Vue.use(Router);
 
 export const baseUrlForRoute = '/ems/app/api';
 
+let userRouteGuard = (userType, next) => {
+  if (userType == store.state.user.type)
+    next();
+  else
+    next({ name: 'error_404' });
+}
+
 const router = new Router({
   routes: [
     {
@@ -16,44 +23,52 @@ const router = new Router({
         {
           path: '',
           name: 'admin',
-          component: () => import(/* webpackChunkName: "user_admin" */ './views/user/Admin/Admin.vue')   
+          component: () => import(/* webpackChunkName: "user_admin" */ './views/user/Admin/Admin.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
         {
           path: 'admin/save_user',
           name: 'admin_save_user',
           props: true,
-          component: () => import(/* webpackChunkName: "admin_save_user" */ './views/user/Admin/SaveUser.vue')
+          component: () => import(/* webpackChunkName: "admin_save_user" */ './views/user/Admin/SaveUser.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
         {
           path: 'admin/faculty_list',
           name: 'admin_faculty_list',
-          component: () => import(/* webpackChunkName: "admin_faculty_list" */ './views/user/Admin/FacultyList.vue')
+          component: () => import(/* webpackChunkName: "admin_faculty_list" */ './views/user/Admin/FacultyList.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
         {
           path: 'admin/student_list',
           name: 'admin_student_list',
-          component: () => import(/* webpackChunkName: "admin_student_list" */ './views/user/Admin/StudentList.vue')
+          component: () => import(/* webpackChunkName: "admin_student_list" */ './views/user/Admin/StudentList.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
         {
           path: 'admin/course_list',
           name: 'admin_course_list',
-          component: () => import(/* webpackChunkName: "admin_course_list" */ './views/user/Admin/CourseList.vue')
+          component: () => import(/* webpackChunkName: "admin_course_list" */ './views/user/Admin/CourseList.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('admin', next) }
         },
 
         {
           path: 'faculty',
           name: 'faculty',
-          component: () => import(/* webpackChunkName: "user_faculty" */ './views/user/Faculty/Faculty.vue')      
+          component: () => import(/* webpackChunkName: "user_faculty" */ './views/user/Faculty/Faculty.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }   
         },
         {
           path: 'student',
           name: 'student',
-          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student/Student.vue'),    
+          component: () => import(/* webpackChunkName: "user_student" */ './views/user/Student/Student.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('student', next) }   
         },
         {
           path: 'exam',
           name: 'exam',
-          component: () => import(/* webpackChunkName: "user_exam" */ './views/Exam.vue'),    
+          component: () => import(/* webpackChunkName: "user_exam" */ './views/Exam.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('student', next) }   
         },
         {
           path: 'about',
@@ -63,7 +78,13 @@ const router = new Router({
         {
           path: 'create_question',
           name: 'create_question',
-          component: () => import(/* webpackChunkName: "create_question" */ './views/CreateQuestion.vue')
+          component: () => import(/* webpackChunkName: "create_question" */ './views/CreateQuestion.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
+        },
+        {
+          path: '/*',
+          name: 'error_404',
+          component: () => import(/* webpackChunkName: "error_404" */ './views/Error404.vue')
         }
       ],
     },

@@ -59,7 +59,7 @@ import axios from '@/plugins/axios';
 import qs from 'qs';
 
 export default {
-  name: 'CreateEditUser',
+  name: 'SaveUser',
   props: {
     user_prop: Object,
   },

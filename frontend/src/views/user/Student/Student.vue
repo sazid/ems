@@ -45,13 +45,6 @@ export default {
       this.$router.push({ name: 'exam' });
     }
   },
-  beforeRouteEnter(to, from , next) {
-    if (store.state.user.type != 'student') {
-      next(false);
-    } else {
-      next();
-    }
-  },
 }
 </script>
 
