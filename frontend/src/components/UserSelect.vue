@@ -54,13 +54,13 @@ export default {
       })
       .then((response) => {
         this.tableData = response.data.users;
-        this.tableData.forEach(user => {
-          if (this.selectedUsers.includes(user.id)) {
-            setTimeout(() => {
+        setTimeout(() => {
+          this.tableData.forEach(user => {
+            if (this.selectedUsers.includes(user.id)) {
               this.$refs.multipleTable.toggleRowSelection(user);
-            }, 300);
-          }
-        });
+            }
+          });
+        }, 300);
       })
       .catch((error) => {
         console.error(error);
@@ -83,6 +83,7 @@ export default {
     
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      this.$emit('user-selected', val);
     }
   },
   created() {

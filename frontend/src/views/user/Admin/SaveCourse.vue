@@ -39,7 +39,7 @@
             </div>
             
             <div>
-              <user-select user-type="faculty" :selected-users="course.users"></user-select>
+              <user-select user-type="faculty" :selected-users="course.users" @user-selected="facultiesSelected"></user-select>
             </div>
           </el-card>
         </div>
@@ -53,7 +53,7 @@
             </div>
             
             <div>
-              <user-select user-type="student" :selected-users="course.users"></user-select>
+              <user-select user-type="student" :selected-users="course.users" @user-selected="studentsSelected"></user-select>
             </div>
           </el-card>
         </div>
@@ -94,18 +94,31 @@ export default {
         active: '',
         users: [],
       },
+      faculties: [],
+      students: [],
     };
   },
 
   methods: {
+    studentsSelected(users) {
+      this.students = users;
+    },
+
+    facultiesSelected(users) {
+      this.faculties = users;
+    },
+    
     saveCourse() {
       if (!this.validateFields()) return;
+
+      let mergedUsers = this.faculties.concat(this.students);
 
       axios.post(`${baseUrlForRoute}/admin/save_course.php`, qs.stringify({
         id: this.course.id,
         name: this.course.name,
         code: this.course.code,
         active: this.course.active ? 1 : 0,
+        users: mergedUsers,
       })).then((response) => {
         this.$message({
           message: response.data.message,

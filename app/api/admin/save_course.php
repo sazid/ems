@@ -11,6 +11,7 @@ $id = htmlspecialchars( $_POST['id']);
 $active = htmlspecialchars($_POST['active']);
 $name = htmlspecialchars($_POST['name']);
 $code = htmlspecialchars($_POST['code']);
+$users = $_POST['users'];
 
 $data = [
     'success' => false,
@@ -25,6 +26,7 @@ try {
         $data['id'] = $result['last_insert_id'];
     } else {
         Course::updateCourse($id, $name, $code, $active);
+        Course::updateUsers($id, $users);
     }
 
     $data['success'] = true;

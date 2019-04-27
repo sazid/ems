@@ -22,6 +22,26 @@ class Course {
         return $db->select('user_course_map', "course_id='$id'");
     }
 
+    public static function updateUsers($id, $users) {
+        $db = new DbManager();
+        
+        try {
+            // Delete previous entries first
+            $sql = "DELETE FROM user_course_map WHERE course_id='$id'";
+            $db->exec($sql);
+
+            foreach($users as $user) {
+                $sql = "INSERT INTO user_course_map(user_id, course_id) VALUES ('{$user['id']}', '$id')";
+                $db->exec($sql);
+            }
+        } catch (PDOException $exc) {
+            echo $exc;
+            return false;
+        }
+
+        return true;
+    }
+
     public static function insertCourse($name, $code, $active) {
         $db = new DbManager();
         $name = $db->conn->quote($name);
