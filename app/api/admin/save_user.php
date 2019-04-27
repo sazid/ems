@@ -43,7 +43,8 @@ $name = htmlspecialchars($_POST['name']);
 
 $data = [
     'success' => false,
-    'message' => ''
+    'message' => '',
+    'id' => $id,
 ];
 
 if (strlen($email) > 0 and !verify_email($email)) {
@@ -52,7 +53,8 @@ if (strlen($email) > 0 and !verify_email($email)) {
 } else {
     try {
         if ($id == -1) {
-            User::insertUser($username, $password, $type, $email, $active, $name);
+            $result = User::insertUser($username, $password, $type, $email, $active, $name);
+            $data['id'] = $result['last_insert_id'];
         } else {
             User::updateUser($id, $username, $password, $type, $email, $active, $name);
         }

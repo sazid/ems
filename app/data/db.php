@@ -36,6 +36,10 @@ class DbManager {
         return $this->conn->exec($sql);
     }
 
+    function getLastInsertId() {
+        return $this->conn->lastInsertId();
+    }
+
     // Select * from a given table name
     function select(string $table_name, string $where_query = null) {
         $sql = "SELECT * FROM $table_name";

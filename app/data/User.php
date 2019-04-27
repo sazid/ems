@@ -39,7 +39,12 @@ class User {
         $values_str = "$username, $password, $type, $email, $active, $name";
         $sql = "INSERT INTO $table_name ($column_str) VALUES ($values_str)";
 
-        return $db->exec($sql);
+        $result = $db->exec($sql);
+        $last_insert_id = $db->getLastInsertId();
+        return [
+            "result" => $result,
+            "last_insert_id" => $last_insert_id
+        ];
     }
 
     public static function updateUser($id, $username, $password, $type, $email, $active, $name)

@@ -27,7 +27,12 @@ class Course {
         $values_str = "$name, $code, $active";
         $sql = "INSERT INTO $table_name ($column_str) VALUES ($values_str)";
 
-        return $db->exec($sql);
+        $result = $db->exec($sql);
+        $last_insert_id = $db->getLastInsertId();
+        return [
+            "result" => $result,
+            "last_insert_id" => $last_insert_id
+        ];
     }
 
     public static function updateCourse($id, $name, $code, $active) {
@@ -48,5 +53,10 @@ class Course {
                 id='$id'";
 
         return $db->exec($sql);
+    }
+
+    public static function getLastInsertId() {
+        $db = new DbManager();
+        return $db->getLastInsertId();
     }
 }

@@ -63,6 +63,10 @@
 </template>
 
 <script>
+import { baseUrlForRoute } from '@/router';
+import axios from '@/plugins/axios';
+import qs from 'qs';
+
 import UserSelect from '@/components/UserSelect.vue';
 
 export default {
@@ -94,8 +98,44 @@ export default {
 
   methods: {
     saveCourse() {
+      if (!this.validateFields()) return;
 
+      axios.post(`${baseUrlForRoute}/admin/save_course.php`, qs.stringify({
+        id: this.course.id,
+        name: this.course.name,
+        code: this.course.code,
+        active: this.course.active ? 1 : 0,
+      })).then((response) => {
+        this.$message({
+          message: response.data.message,
+          type: response.data.success ? 'success' : 'error',
+        });
+
+        if (response.data.success) {
+          this.course.id = response.data.id;
+          this.courseProp = this.course;
+        }
+      });
     },
+
+    err(msg) {
+      this.$message({
+        message: msg,
+        type: 'error'
+      });
+    },
+
+    validateFields() {
+      if (this.course.name.length < 5) {
+        this.err('Course name cannot be less than 5 characters');
+        return false;
+      } else if (this.course.code.length < 1) {
+        this.err('Course code cannot be empty');
+        return false;
+      }
+
+      return true;
+    }
   }
 }
 </script>
