@@ -18,7 +18,7 @@
       </el-col>
     </el-row>
     
-    <el-row :gutter="20" style="margin-top: 15px">
+    <!-- <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="8">
         <div class="grid-content bg-purple">
           <el-card class="box-card">
@@ -60,7 +60,7 @@
           </el-card>
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 
