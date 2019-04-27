@@ -1,6 +1,6 @@
 <template>
   <div id="faculty">
-    <el-button @click="$router.push({ name: 'create_question' })" type="primary" size="medium">Create Question</el-button>
+    <el-button @click="$router.push({ name: 'faculty_create_question' })" type="primary" size="medium">Create Question</el-button>
 
     <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="8">
