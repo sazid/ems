@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2019 at 04:48 PM
+-- Generation Time: Apr 28, 2019 at 07:58 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -34,6 +34,18 @@ CREATE TABLE `answer` (
   `question_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`id`, `value`, `question_id`) VALUES
+(3, 'A', 2),
+(4, 'B', 2),
+(5, 'C', 2),
+(6, 'D', 2),
+(7, '', 3),
+(8, '', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -52,7 +64,10 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`id`, `name`, `code`, `active`) VALUES
-(1, 'Web Technologies', '3101', 1);
+(1, 'Web Technologies', '3101', 1),
+(2, 'Computer Graphics', '3201', 1),
+(3, 'Compiler Design', '3110', 1),
+(4, 'Artificial Intelligence', '3211', 1);
 
 -- --------------------------------------------------------
 
@@ -68,6 +83,33 @@ CREATE TABLE `exam` (
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`id`, `name`, `start`, `end`, `course_id`) VALUES
+(13, 'Test Exam', '2019-04-27 20:00:00', '2019-04-27 22:00:00', 1),
+(14, 'asdf asdf asd f', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
+(15, 'sdf', '2019-04-02 18:00:00', '2019-04-09 18:00:00', 1),
+(16, 'asdf', '2019-04-03 18:00:00', '2019-04-11 18:00:00', 1),
+(17, 'asdf asdfad', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
+(18, 'xcvzxcv', '2019-04-01 18:00:00', '2019-04-08 18:00:00', 1),
+(19, 'dfgdfg', '2019-03-31 18:00:00', '2019-04-17 18:00:00', 1),
+(20, 'zxc vzxcvzv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
+(21, 'xcvbc', '2019-04-08 18:00:00', '2019-04-16 18:00:00', 1),
+(22, 'zxv', '2019-04-17 18:00:00', '2019-05-22 18:00:00', 1),
+(23, 'xcv', '2019-04-10 18:00:00', '2019-04-11 18:00:00', 1),
+(24, 'cxv', '2019-04-04 18:00:00', '2019-04-19 18:00:00', 1),
+(25, 'zxvc', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
+(26, 'adfadf asd f', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
+(27, 'asfdasdf adf', '2019-04-17 18:00:00', '2019-04-24 18:00:00', 1),
+(28, 'a fad fa fda', '2019-04-08 18:00:00', '2019-04-15 18:00:00', 1),
+(29, 'a fad fa fda', '2019-04-08 18:00:00', '2019-04-15 18:00:00', 1),
+(30, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
+(31, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
+(32, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
+(33, 'sdf', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +123,15 @@ CREATE TABLE `question` (
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`id`, `title`, `type`, `course_id`) VALUES
+(1, 'Test descriptive', 'descriptive', 1),
+(2, 'Test mcq', 'mcq', 1),
+(3, 'Test file', 'file', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -89,10 +140,19 @@ CREATE TABLE `question` (
 
 CREATE TABLE `question_set` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
   `exam_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `question_set`
+--
+
+INSERT INTO `question_set` (`id`, `exam_id`, `question_id`) VALUES
+(1, 32, 1),
+(2, 32, 2),
+(3, 33, 2),
+(4, 33, 3);
 
 -- --------------------------------------------------------
 
@@ -136,7 +196,9 @@ INSERT INTO `user` (`id`, `username`, `password`, `type`, `email`, `active`, `na
 (3, 'alamin', 'alamin', 'faculty', 'alamin@aiub.edu', 1, 'MD Al Amin'),
 (7, 'hello', 'hello', 'student', 'hello@hello.com', 1, 'Hello World'),
 (8, 'asdf', 'asdfasdf', 'faculty', 'asdf@asdf.asdf', 1, 'asdfasdf'),
-(14, 'gfgfgfg', 'bbbbbb', 'faculty', 'bb@bb.bb', 1, 'bbbbbbb');
+(14, 'gfgfgfg', 'bbbbbb', 'faculty', 'bb@bb.bb', 1, 'bbbbbbb'),
+(15, 'another', 'another', 'student', 'ano@ano.com', 1, 'Another User'),
+(16, 'faculty', 'faculty', 'faculty', 'faculty@faculty.com', 1, 'Faculty');
 
 -- --------------------------------------------------------
 
@@ -149,6 +211,18 @@ CREATE TABLE `user_course_map` (
   `user_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_course_map`
+--
+
+INSERT INTO `user_course_map` (`id`, `user_id`, `course_id`) VALUES
+(4, 16, 2),
+(19, 3, 1),
+(20, 2, 1),
+(21, 15, 1),
+(23, 3, 4),
+(24, 7, 4);
 
 --
 -- Indexes for dumped tables
@@ -222,31 +296,31 @@ ALTER TABLE `user_course_map`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `question_set`
 --
 ALTER TABLE `question_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `submission`
@@ -258,13 +332,13 @@ ALTER TABLE `submission`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_course_map`
 --
 ALTER TABLE `user_course_map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
