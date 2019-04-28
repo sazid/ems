@@ -68,13 +68,29 @@ const router = new Router({
         {
           path: 'faculty_create_question',
           name: 'faculty_create_question',
+          props: true,
           component: () => import(/* webpackChunkName: "faculty_create_question" */ './views/user/Faculty/CreateQuestion.vue'),
           beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
         },
         {
           path: 'faculty/course_list',
           name: 'faculty_course_list',
+          props: true,
           component: () => import(/* webpackChunkName: "faculty_course_list" */ './views/user/Faculty/FacultyCourseList.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
+        },
+        {
+          path: 'faculty/save_exam',
+          name: 'faculty_save_exam',
+          props: true,
+          component: () => import(/* webpackChunkName: "faculty_save_exam" */ './views/user/Faculty/SaveExam.vue'),
+          beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
+        },
+        {
+          path: 'faculty/course_details',
+          name: 'faculty_course_details',
+          props: true,
+          component: () => import(/* webpackChunkName: "faculty_course_details" */ './views/user/Faculty/CourseDetails.vue'),
           beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
         },
         
@@ -94,12 +110,12 @@ const router = new Router({
           path: 'about',
           name: 'about',
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        },
+        {
+          path: '/error_404',
+          name: 'error_404',
+          component: () => import(/* webpackChunkName: "error_404" */ './views/Error404.vue')
         }
-        // {
-        //   path: '/*',
-        //   name: 'error_404',
-        //   component: () => import(/* webpackChunkName: "error_404" */ './views/Error404.vue')
-        // }
       ],
     },
     {

@@ -10,9 +10,14 @@ class Question {
     public static function getQuestions(string $filter) {
         $db = new DbManager();
         if ($filter != null && !empty($filter)) {
-            return $db->select('question', "title LIKE '%$filter%'");
+            return $db->select('question', "title LIKE '%$filter%' OR type LIKE '%$filter'");
         }
-        return $db->select('Question');
+        return $db->select('question');
+    }
+
+    public static function getQuestionsForCourse($id) {
+        $db = new DbManager();
+        return $db->select('question', "course_id='$id'");
     }
 
     public static function insertQuestion($title, $type, $mcq_options, $course_id) {
