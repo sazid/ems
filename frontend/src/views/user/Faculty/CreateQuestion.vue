@@ -99,12 +99,12 @@ export default {
 
         // Go back to previous page if successful
         if (response.data.success)
-          this.$router.go(-1);
+          this.$router.go(-2);
       });
     },
     
     validateFields() {
-      if (this.question.mcq_options.length < 3 && this.question.type == 'mcq') {
+      if (this.question.mcq_options.length < 2 && this.question.type == 'mcq') {
         this.err('There must be at least two options for MCQ.');
         return false;
       } else if (this.question.title.length < 3) {

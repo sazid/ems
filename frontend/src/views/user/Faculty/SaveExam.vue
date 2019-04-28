@@ -32,7 +32,7 @@
         </div>
       </el-col>
       
-      <el-col :span="14" v-if="examProp">
+      <el-col :span="14">
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header">
@@ -85,13 +85,11 @@ export default {
         end: new Date(),
         questions: [],
       },
-      questions: [],
     };
   },
 
   methods: {
     questionsSelected(questions) {
-      this.questions = questions;
       this.exam.questions = questions;
     },
 
@@ -104,7 +102,7 @@ export default {
         start: this.datetime_range[0],
         end: this.datetime_range[1],
         course_id: this.courseProp.id,
-        questions: this.exam.questions,
+        questions: this.exam.questions || [],
       })).then((response) => {
         this.$message({
           message: response.data.message,

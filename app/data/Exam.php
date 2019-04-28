@@ -18,10 +18,10 @@ class Exam {
     public static function getExamsForUser(string $filter, $user_id) {
         $db = new DbManager();
 
-        $sql = "SELECT * FROM exam WHERE id in (SELECT course_id FROM user_course_map WHERE user_id='$user_id')";        
+        $sql = "SELECT * FROM exam WHERE course_id in (SELECT course_id FROM user_course_map WHERE user_id='$user_id')";        
         
         if ($filter != null && !empty($filter)) {
-            $sql .= " AND (name LIKE '%$filter%' OR code LIKE '%$filter%')";
+            $sql .= " AND (name LIKE '%$filter%')";
         }
 
         return $db->query($sql);
