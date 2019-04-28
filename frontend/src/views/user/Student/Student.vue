@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     exam() {
-      this.$router.push({ name: 'exam' });
+      this.$router.push({ name: 'student_exam' });
     }
   },
 }
