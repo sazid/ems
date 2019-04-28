@@ -32,7 +32,7 @@
         </div>
       </el-col>
       
-      <el-col :span="14" v-if="!examProp">
+      <el-col :span="14" v-if="examProp">
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header">
@@ -40,8 +40,7 @@
             </div>
             
             <div>
-              <!-- <question-select :selected-questions="exam.questions" :course-prop="courseProp" @question-selected="questionsSelected"></question-select> -->
-              <question-select :selected-questions="exam.questions" :course-prop="{id: 1}" @question-selected="questionsSelected"></question-select>
+              <question-select :selected-questions="exam.questions" :course-prop="courseProp" @question-selected="questionsSelected"></question-select>
             </div>
           </el-card>
         </div>
