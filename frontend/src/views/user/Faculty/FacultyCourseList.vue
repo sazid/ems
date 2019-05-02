@@ -54,7 +54,7 @@ export default {
       this.$router.push({
         name: 'faculty_course_details',
         params: {
-          courseProp: row,
+          id: row.id,
         }
       });
     },

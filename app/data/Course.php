@@ -2,7 +2,7 @@
 require_once('db.php');
 
 class Course {
-    public static function getCourseById(number $id) {
+    public static function getCourseById($id) {
         $db = new DbManager();
         return $db->select('course', "id='$id'");
     }
@@ -15,6 +15,20 @@ class Course {
                 OR code LIKE '%$filter%'");
         }
         return $db->select('course');
+    }
+
+    public static function getExams($id) {
+        $db = new DbManager();
+        return $db->select('exam', "course_id='$id'");
+    }
+
+    public static function getUsers($id, $type=NULL) {
+        $db = new DbManager();
+        $sql = "SELECT * FROM user WHERE id in (SELECT user_id FROM user_course_map WHERE course_id='$id')";
+        if ($type != NULL) {
+            $sql .= " AND type='$type'";
+        }
+        return $db->query($sql);
     }
 
     public static function getCoursesForUser(string $filter, $user_id) {
