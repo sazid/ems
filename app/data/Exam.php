@@ -52,6 +52,20 @@ class Exam {
         return true;
     }
 
+    public static function deleteExam($id) {
+        try {
+            $db = new DbManager();
+
+            $db->delete('question_set', "exam_id='$id'");
+            $db->delete('exam', "id='$id'");
+        } catch (PDOException $exc) {
+            echo $exc;
+            return false;
+        }
+
+        return true;
+    }
+
     public static function insertExam($name, $start, $end, $course_id, $questions) {
         try {
             $db = new DbManager();

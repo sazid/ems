@@ -26,6 +26,7 @@
 
               <div style="margin-top: 15px">
                 <el-button type="primary" @click="saveExam">Save</el-button>
+                <el-button v-if="exam.id != -1" type="danger" @click="deleteExam">Delete</el-button>
               </div>
             </div>
           </el-card>
@@ -131,6 +132,27 @@ export default {
           this.$router.go(-1);
         }
       });
+    },
+
+    deleteExam() {
+      this.$confirm('This will permanently delete the exam. Continue?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        axios.post(`${baseUrlForRoute}/faculty/delete_exam.php`, qs.stringify({
+          id: this.exam.id,
+        })).then((response) => {
+          this.$message({
+            message: response.data.message,
+            type: response.data.success ? 'success' : 'error',
+          });
+
+          if (response.data.success) {
+            this.$router.go(-1);
+          }
+        });
+      }).catch(_ => {});
     },
 
     err(msg) {
