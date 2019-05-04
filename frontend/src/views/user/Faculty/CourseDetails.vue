@@ -100,7 +100,7 @@ export default {
       this.$router.push({
         name: name,
         params: {
-          id: this.$route.params.id,
+          course_id: this.$route.params.id,
         }
       });
     },

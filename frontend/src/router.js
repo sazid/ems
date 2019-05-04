@@ -66,7 +66,7 @@ const router = new Router({
           beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }   
         },
         {
-          path: 'faculty_create_question',
+          path: 'faculty/create_question/:course_id',
           name: 'faculty_create_question',
           props: true,
           component: () => import(/* webpackChunkName: "faculty_create_question" */ './views/user/Faculty/CreateQuestion.vue'),

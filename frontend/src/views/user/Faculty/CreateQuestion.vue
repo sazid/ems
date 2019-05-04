@@ -47,11 +47,6 @@ import axios from '@/plugins/axios';
 import qs from 'qs';
 
 export default {
-  props: {
-    courseProp: Object,
-    questionProp: Object,
-  },
-  
   data() {
     return {
       question: {
@@ -89,8 +84,7 @@ export default {
         title: this.question.title,
         mcq_options: this.question.mcq_options,
         type: this.question.type,
-        // course_id: 1,
-        course_id: this.courseProp.id,
+        course_id: this.$route.params.course_id,
       })).then((response) => {
         this.$message({
           message: response.data.message,
@@ -99,7 +93,7 @@ export default {
 
         // Go back to previous page if successful
         if (response.data.success)
-          this.$router.go(-2);
+          this.$router.go(-1);
       });
     },
     
@@ -113,6 +107,13 @@ export default {
       } else if (!this.question.type) {
         this.err('Please select the question type.');
         return false;
+      }
+
+      for (let i = 0; i < this.mcq_options.length; ++i) {
+        if (!this.mcq_options[i]) {
+          this.err('No options can be empty');
+          return false;
+        }
       }
 
       return true;
