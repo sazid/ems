@@ -34,7 +34,7 @@ export default {
   name: 'QuestionSelect',
   props: {
     selectedQuestions: Array,
-    courseProp: Object,
+    courseId: String,
   },
   data() {
     return {
@@ -48,7 +48,7 @@ export default {
     getQuestions(q = '') {
       axios.get(`${baseUrlForRoute}/faculty/get_questions.php`, {
         params: {
-          course_id: this.courseProp.id,
+          course_id: this.courseId,
         },
       })
       .then((response) => {
@@ -87,6 +87,7 @@ export default {
   },
   created() {
     this.getQuestions();
+    console.log(this.courseId);
   },
   watch: {
     search(newVal, oldVal) {

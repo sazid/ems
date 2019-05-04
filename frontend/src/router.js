@@ -80,7 +80,7 @@ const router = new Router({
           beforeEnter: (to, from, next) => { userRouteGuard('faculty', next) }
         },
         {
-          path: 'faculty/save_exam',
+          path: 'faculty/save_exam/:course_id',
           name: 'faculty_save_exam',
           props: true,
           component: () => import(/* webpackChunkName: "faculty_save_exam" */ './views/user/Faculty/SaveExam.vue'),

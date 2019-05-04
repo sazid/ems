@@ -40,7 +40,7 @@
             </div>
             
             <div>
-              <question-select :selected-questions="exam.questions" :course-prop="courseProp" @question-selected="questionsSelected"></question-select>
+              <question-select :selected-questions="exam.questions" :course-id="$route.params.course_id" @question-selected="questionsSelected"></question-select>
             </div>
           </el-card>
         </div>
@@ -65,7 +65,6 @@ export default {
 
   props: {
     examProp: Object,
-    courseProp: Object,
   },
   
   created() {
@@ -80,7 +79,7 @@ export default {
       exam: {
         id: -1,
         name: '',
-        course_id: this.courseProp.id,
+        course_id: this.$route.params.course_id,
         start: new Date(),
         end: new Date(),
         questions: [],
@@ -101,7 +100,7 @@ export default {
         name: this.exam.name,
         start: this.datetime_range[0],
         end: this.datetime_range[1],
-        course_id: this.courseProp.id,
+        course_id: this.$route.params.course_id,
         questions: this.exam.questions || [],
       })).then((response) => {
         this.$message({
@@ -110,8 +109,7 @@ export default {
         });
 
         if (response.data.success) {
-          this.exam.id = response.data.id;
-          this.examProp = this.exam;
+          this.$router.go(-1);
         }
       });
     },

@@ -107,12 +107,12 @@ export default {
       } else if (!this.question.type) {
         this.err('Please select the question type.');
         return false;
-      }
-
-      for (let i = 0; i < this.mcq_options.length; ++i) {
-        if (!this.mcq_options[i]) {
-          this.err('No options can be empty');
-          return false;
+      } else if (this.question.type == 'mcq') {
+        for (let i = 0; i < this.question.mcq_options.length; ++i) {
+          if (!this.question.mcq_options[i]) {
+            this.err('No options can be empty');
+            return false;
+          }
         }
       }
 
