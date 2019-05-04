@@ -8,11 +8,10 @@
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header">
-              <span>Previous exams</span>
+              <span>Courses</span>
             </div>
-            <div v-for="o in 3" :key="o" class="text item">
-              {{`Exam ${o}: ${(new Date()).toDateString()}`}}
-            </div>
+            
+            <student-course-list></student-course-list>
           </el-card>
         </div>
       </el-col>
@@ -20,7 +19,7 @@
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header">
-              <span>Upcoming exams</span>
+              <span>Exams</span>
             </div>
             <div v-for="o in 5" :key="o" class="text item">
               {{`Exam ${o}: ${(new Date()).toDateString()}`}}
@@ -34,8 +33,12 @@
 
 <script>
 import store from '@/store';
+import StudentCourseList from '@/components/Student/StudentCourseList.vue';
 
 export default {
+  components: {
+    StudentCourseList,
+  },
   data() {
     return {
     }
