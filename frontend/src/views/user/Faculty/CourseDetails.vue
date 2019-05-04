@@ -38,6 +38,14 @@
                   label="Name"
                   prop="name">
                 </el-table-column>
+                <el-table-column
+                  align="right">
+                  <template slot-scope="scope">
+                    <el-button
+                      size="mini"
+                      @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                  </template>
+                </el-table-column>
               </el-table>
             </div>
           </el-card>
@@ -84,7 +92,7 @@ export default {
   data() {
     return {
       course: {
-        id: -1,
+        id: '-1',
         name: '',
         code: '',
         active: 0,
@@ -101,6 +109,17 @@ export default {
         name: name,
         params: {
           course_id: this.$route.params.id,
+        }
+      });
+    },
+
+    handleEdit(index, row) {
+      // console.log(index, row);
+      this.$router.push({
+        name: 'faculty_save_exam',
+        params: {
+          examProp: row,
+          course_id: this.course.id,
         }
       });
     },

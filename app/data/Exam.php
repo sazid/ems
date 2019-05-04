@@ -41,7 +41,7 @@ class Exam {
             $db->exec($sql);
 
             foreach($questions as $question) {
-                $sql = "INSERT INTO question_set (exam_id, question_id) VALUES (' '$id', {$question['id']} ')";
+                $sql = "INSERT INTO question_set (exam_id, question_id) VALUES ('$id', '{$question['id']}')";
                 $db->exec($sql);
             }
         } catch (PDOException $exc) {
@@ -90,7 +90,7 @@ class Exam {
                 name=$name,
                 start='$start',
                 end='$end',
-                course_id=$course_id
+                course_id='$course_id'
             WHERE
                 id='$id'";
 

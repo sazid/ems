@@ -40,7 +40,7 @@
             </div>
             
             <div>
-              <question-select :selected-questions="exam.questions" :course-id="$route.params.course_id" @question-selected="questionsSelected"></question-select>
+              <question-select :exam-id="exam.id + ''" :course-id="$route.params.course_id" @question-selected="questionsSelected"></question-select>
             </div>
           </el-card>
         </div>
@@ -69,7 +69,11 @@ export default {
   
   created() {
     if (this.examProp) {
-      this.examn = this.examProp;
+      // this.examn = this.examProp;
+      this.exam.id = this.examProp.id;
+      this.exam.name = this.examProp.name;
+      this.exam.start = new Date(this.examProp.start);
+      this.exam.end = new Date(this.examProp.end);
     }
   },
   
@@ -90,6 +94,21 @@ export default {
   methods: {
     questionsSelected(questions) {
       this.exam.questions = questions;
+    },
+
+    loadData() {
+      axios.post(`${baseUrlForRoute}/faculty/save_exam.php`, qs.stringify({
+        id: this.exam.id,
+      })).then((response) => {
+        this.$message({
+          message: response.data.message,
+          type: response.data.success ? 'success' : 'error',
+        });
+
+        if (response.data.success) {
+          this.$router.go(-1);
+        }
+      });
     },
 
     saveExam() {

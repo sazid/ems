@@ -33,8 +33,9 @@ import axios from '@/plugins/axios';
 export default {
   name: 'QuestionSelect',
   props: {
-    selectedQuestions: Array,
+    // selectedQuestions: Array,
     courseId: String,
+    examId: String,
   },
   data() {
     return {
@@ -49,15 +50,19 @@ export default {
       axios.get(`${baseUrlForRoute}/faculty/get_questions.php`, {
         params: {
           course_id: this.courseId,
+          exam_id: this.examId,
         },
       })
       .then((response) => {
         this.tableData = response.data.questions;
         setTimeout(() => {
+          // this.toggleSelection(response.data.selected);
           this.tableData.forEach(question => {
-            if (this.selectedQuestions.includes(question.id)) {
-              this.$refs.multipleTable.toggleRowSelection(question);
-            }
+            response.data.selected.forEach(q => {
+              if (q.id == question.id) {
+                this.$refs.multipleTable.toggleRowSelection(question);
+              }
+            });
           });
         }, 300);
       })
@@ -87,7 +92,6 @@ export default {
   },
   created() {
     this.getQuestions();
-    console.log(this.courseId);
   },
   watch: {
     search(newVal, oldVal) {

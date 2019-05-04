@@ -20,6 +20,14 @@ class Question {
         return $db->select('question', "course_id='$id'");
     }
 
+    public static function getQuestionsForExam($exam_id) {
+        $db = new DbManager();
+
+        $sql = "SELECT * FROM question WHERE id in (SELECT question_id FROM question_set WHERE exam_id='$exam_id')";
+
+        return $db->query($sql);
+    }
+
     public static function insertQuestion($title, $type, $mcq_options, $course_id) {
         try {
             $db = new DbManager();
