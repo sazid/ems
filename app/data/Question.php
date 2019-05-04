@@ -42,7 +42,8 @@ class Question {
             $last_insert_id = $db->getLastInsertId();
 
             foreach($mcq_options as $option) {
-                $sql = "INSERT INTO answer (value, question_id) VALUES ('$option', '$last_insert_id')";
+                $option = $db->conn->quote($option);
+                $sql = "INSERT INTO answer (value, question_id) VALUES ($option, '$last_insert_id')";
                 $db->exec($sql);
             }
         } catch (PDOException $exc) {

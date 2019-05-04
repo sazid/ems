@@ -21,9 +21,8 @@
             <div slot="header">
               <span>Exams</span>
             </div>
-            <div v-for="o in 5" :key="o" class="text item">
-              {{`Exam ${o}: ${(new Date()).toDateString()}`}}
-            </div>
+            
+            <student-exam-list></student-exam-list>
           </el-card>
         </div>
       </el-col>
@@ -34,10 +33,12 @@
 <script>
 import store from '@/store';
 import StudentCourseList from '@/components/Student/StudentCourseList.vue';
+import StudentExamList from '@/components/Student/StudentExamList.vue';
 
 export default {
   components: {
     StudentCourseList,
+    StudentExamList,
   },
   data() {
     return {
