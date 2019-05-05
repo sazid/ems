@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2019 at 07:58 AM
+-- Generation Time: May 05, 2019 at 09:29 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -43,8 +43,19 @@ INSERT INTO `answer` (`id`, `value`, `question_id`) VALUES
 (4, 'B', 2),
 (5, 'C', 2),
 (6, 'D', 2),
-(7, '', 3),
-(8, '', 3);
+(9, 'sdf', 4),
+(10, 'fd', 4),
+(11, 'fg', 5),
+(12, 'hg', 5),
+(13, 'A', 6),
+(14, 'B', 6),
+(15, 'C', 6),
+(16, 'D', 6),
+(17, '', 7),
+(18, '', 7),
+(22, 'A*', 11),
+(23, 'Diajkstra\'s Algorithm', 11),
+(24, 'Prim\'s Algorithm', 11);
 
 -- --------------------------------------------------------
 
@@ -88,27 +99,10 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`id`, `name`, `start`, `end`, `course_id`) VALUES
-(13, 'Test Exam', '2019-04-27 20:00:00', '2019-04-27 22:00:00', 1),
-(14, 'asdf asdf asd f', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
-(15, 'sdf', '2019-04-02 18:00:00', '2019-04-09 18:00:00', 1),
-(16, 'asdf', '2019-04-03 18:00:00', '2019-04-11 18:00:00', 1),
-(17, 'asdf asdfad', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
-(18, 'xcvzxcv', '2019-04-01 18:00:00', '2019-04-08 18:00:00', 1),
-(19, 'dfgdfg', '2019-03-31 18:00:00', '2019-04-17 18:00:00', 1),
-(20, 'zxc vzxcvzv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
-(21, 'xcvbc', '2019-04-08 18:00:00', '2019-04-16 18:00:00', 1),
-(22, 'zxv', '2019-04-17 18:00:00', '2019-05-22 18:00:00', 1),
-(23, 'xcv', '2019-04-10 18:00:00', '2019-04-11 18:00:00', 1),
-(24, 'cxv', '2019-04-04 18:00:00', '2019-04-19 18:00:00', 1),
-(25, 'zxvc', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
-(26, 'adfadf asd f', '2019-04-09 18:00:00', '2019-04-17 18:00:00', 1),
-(27, 'asfdasdf adf', '2019-04-17 18:00:00', '2019-04-24 18:00:00', 1),
-(28, 'a fad fa fda', '2019-04-08 18:00:00', '2019-04-15 18:00:00', 1),
-(29, 'a fad fa fda', '2019-04-08 18:00:00', '2019-04-15 18:00:00', 1),
-(30, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
-(31, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
-(32, 'zxcvzxcv', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 1),
-(33, 'sdf', '2019-04-08 18:00:00', '2019-04-17 18:00:00', 4);
+(33, 'First AI Exam', '2019-05-14 18:00:00', '2019-05-21 18:00:00', 4),
+(37, 'Hello Exam Two', '2019-05-13 18:00:00', '2019-05-21 18:00:00', 1),
+(38, 'Test AI Exam', '2019-05-04 18:00:00', '2019-05-05 18:00:00', 4),
+(40, 'Exam with 2 questions', '2019-05-06 18:00:00', '2019-05-14 18:00:00', 4);
 
 -- --------------------------------------------------------
 
@@ -130,7 +124,12 @@ CREATE TABLE `question` (
 INSERT INTO `question` (`id`, `title`, `type`, `course_id`) VALUES
 (1, 'Test descriptive', 'descriptive', 1),
 (2, 'Test mcq', 'mcq', 1),
-(3, 'Test file', 'file', 1);
+(3, 'Test file', 'file', 1),
+(4, 'asdfasdf', 'mcq', 1),
+(5, 'test question 2', 'mcq', 1),
+(6, 'Test MCQ Question', 'mcq', 1),
+(7, 'What is AI?', 'descriptive', 4),
+(11, 'UCS algorithm is similar to...', 'mcq', 4);
 
 -- --------------------------------------------------------
 
@@ -149,10 +148,14 @@ CREATE TABLE `question_set` (
 --
 
 INSERT INTO `question_set` (`id`, `exam_id`, `question_id`) VALUES
-(1, 32, 1),
-(2, 32, 2),
-(3, 33, 2),
-(4, 33, 3);
+(10, 38, 7),
+(19, 33, 7),
+(25, 40, 7),
+(26, 40, 11),
+(27, 37, 2),
+(28, 37, 3),
+(29, 37, 6),
+(30, 37, 1);
 
 -- --------------------------------------------------------
 
@@ -196,7 +199,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `type`, `email`, `active`, `na
 (3, 'alamin', 'alamin', 'faculty', 'alamin@aiub.edu', 1, 'MD Al Amin'),
 (7, 'hello', 'hello', 'student', 'hello@hello.com', 1, 'Hello World'),
 (8, 'asdf', 'asdfasdf', 'faculty', 'asdf@asdf.asdf', 1, 'asdfasdf'),
-(14, 'gfgfgfg', 'bbbbbb', 'faculty', 'bb@bb.bb', 1, 'bbbbbbb'),
+(14, 'gfgfgfg', 'bbbbbb', 'faculty', 'bb@bb.bb', 0, 'bbbbbbb'),
 (15, 'another', 'another', 'student', 'ano@ano.com', 1, 'Another User'),
 (16, 'faculty', 'faculty', 'faculty', 'faculty@faculty.com', 1, 'Faculty');
 
@@ -217,12 +220,13 @@ CREATE TABLE `user_course_map` (
 --
 
 INSERT INTO `user_course_map` (`id`, `user_id`, `course_id`) VALUES
-(4, 16, 2),
 (19, 3, 1),
 (20, 2, 1),
 (21, 15, 1),
 (23, 3, 4),
-(24, 7, 4);
+(24, 7, 4),
+(25, 16, 2),
+(26, 2, 2);
 
 --
 -- Indexes for dumped tables
@@ -296,7 +300,7 @@ ALTER TABLE `user_course_map`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -308,19 +312,19 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `question_set`
 --
 ALTER TABLE `question_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `submission`
@@ -338,7 +342,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_course_map`
 --
 ALTER TABLE `user_course_map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
