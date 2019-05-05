@@ -111,17 +111,19 @@ export default {
         this.questions = d.questions;
         this.submissions = [];
 
-        d.questions.forEach(q => {
-          q.submission = {
-            type: q.type,
-            value: '',
-            submission_time: new Date(),
-            user_id: '',
-            exam_id: this.exam.id,
-            question_id: q.id,
-            type: q.type
-          };
-        });
+        for (let i = 0; i < this.questions.length; ++i) {
+          this.questions[i] = Object.assign({}, this.questions[i], {
+            submission: {
+              type: this.questions[i].type,
+              value: '',
+              submission_time: new Date(),
+              user_id: '',
+              exam_id: this.exam.id,
+              question_id: this.questions[i].id,
+              type: this.questions[i].type
+            }
+          });
+        }
       })
       .catch((error) => {
         console.error(error);
