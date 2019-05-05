@@ -38,7 +38,21 @@
 
         <div style="margin-top: 15px" v-if="props.row.type === 'file'">
           <p>File upload</p>
-          <input type="file" @change="onFileChange($event, props.row)">
+          <el-upload
+            class="upload-demo"
+            action="app/api/student/file_upload.php"
+            drag
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            :multiple="false"
+            :limit="1"
+            :on-exceed="handleExceed"
+            :file-list="props.row.submission.files">
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+            <div slot="tip" class="el-upload__tip">Please upload files with proper extensions</div>
+          </el-upload>
         </div>
       </template>
       </el-table-column>
@@ -85,6 +99,23 @@ export default {
   },
 
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+
+    handlePreview(file) {
+      console.log(file);
+    },
+
+    handleExceed(files, fileList) {
+      // this.$message.warning(`The limit is 3, you selected ${files.length} files this time, add up to ${files.length + fileList.length} totally`);
+      this.$message.warning(`You can only upload 1 file for each question`);
+    },
+
+    beforeRemove(file, fileList) {
+      return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
+    },
+
     onFileChange(e, row) {
       let files = e.target.files || e.dataTransfer.files;
       if (files.length == 0 || files.length > 1)
@@ -116,6 +147,7 @@ export default {
             submission: {
               type: this.questions[i].type,
               value: '',
+              files: [],
               submission_time: new Date(),
               user_id: '',
               exam_id: this.exam.id,
