@@ -1,36 +1,54 @@
 <template>
   <div id="student">
-    <h1>Exam view</h1>
-    <p>Time remaining: <strong>1hr:15m</strong></p>
+    <el-card class="box-card">
+      <div slot="header">
+        <span>{{ exam.name }}</span>
+      </div>
+      
+      <div>
+        <p>Start: <strong>{{ exam.start }}</strong></p>
+        <p>End: <strong>{{ exam.end }}</strong></p>
+      </div>
+    </el-card>
+
     <el-table
-      :data="tableData"
+      :data="questions"
       style="width: 100%">
       <el-table-column type="expand">
       <template slot-scope="props">
-        <div v-if="props.row.type === 'mcq'">
-          <el-radio v-model="radio" label="1">PHP_SELF</el-radio>
-          <el-radio v-model="radio" label="2">SERVER_NAME</el-radio>
-          <el-radio v-model="radio" label="3">HTTP_HOST</el-radio>
-          <el-radio v-model="radio" label="4">SCRIPT_NAME</el-radio>
-        </div>
+        <el-radio
+          v-if="props.row.type === 'mcq'"
+          v-for="(o, index) in props.row.options"
+          :key="o.value"
+          :label="o.value"
+          @change="onOptionChange(o, props.row)"
+          v-model="props.row.submission.value">
+
+          {{ o.value }}
+
+        </el-radio>
 
         <div style="margin-top: 15px" v-if="props.row.type === 'descriptive'">
           <el-input
             type="textarea"
             :autosize="{ minRows: 4, maxRows: 8}"
             placeholder="Write your answer here"
-            v-model="description"/>
+            v-model="props.row.submission.value"/>
         </div>
 
         <div style="margin-top: 15px" v-if="props.row.type === 'file'">
           <p>File upload</p>
-          <input type="file">
+          <input type="file" @change="onFileChange($event, props.row)">
         </div>
       </template>
       </el-table-column>
       <el-table-column
         label="Question"
         prop="title">
+      </el-table-column>
+      <el-table-column
+        label="Type"
+        prop="type">
       </el-table-column>
       <el-table-column
         align="right">
@@ -43,28 +61,73 @@
 </template>
 
 <script>
+import { baseUrlForRoute } from '@/router';
+import axios from '@/plugins/axios';
+
 export default {
   data() {
     return {
       search: '',
-      radio: '1',
+      radio: '',
       description: '',
-      tableData: [{
-        title: 'Which of the following gives the path of the current script in PHP?',
-        type: 'mcq',
-        answers: [],
-      }, {
-        title: 'What is Internet?',
-        type: 'descriptive',
-      }, {
-        title: 'Describe about different sort functions in PHP',
-        type: 'descriptive',
-      }, {
-        title: 'Write code to handle form submission and display the error on the form.',
-        type: 'file',
-      }]
+      exam: {
+        id: -1,
+        name: '',
+        start: '',
+        end: '',
+      },
+      questions: [],
     }
-  }
+  },
+
+  created() {
+    this.loadExam();
+  },
+
+  methods: {
+    onFileChange(e, row) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (files.length == 0 || files.length > 1)
+        return;
+
+      console.log(e);
+      console.log(row);
+    },
+
+    onOptionChange(o, row) {
+      console.log(o);
+      console.log(row);
+    },
+
+    loadExam() {
+      axios.get(`${baseUrlForRoute}/student/get_exam_data.php`, {
+        params: {
+          exam_id: this.$route.params.exam_id,
+        },
+      })
+      .then((response) => {
+        let d = response.data;
+        this.exam = d.exam;
+        this.questions = d.questions;
+        this.submissions = [];
+
+        d.questions.forEach(q => {
+          q.submission = {
+            type: q.type,
+            value: '',
+            submission_time: new Date(),
+            user_id: '',
+            exam_id: this.exam.id,
+            question_id: q.id,
+            type: q.type
+          };
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
+  },
 }
 </script>
 

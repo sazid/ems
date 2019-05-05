@@ -27,6 +27,11 @@ class Question {
 
         return $db->query($sql);
     }
+    
+    public static function getAnswerForQuestion($question_id) {
+        $db = new DbManager();
+        return $db->select('answer', "question_id='$question_id'");
+    }
 
     public static function insertQuestion($title, $type, $mcq_options, $course_id) {
         try {

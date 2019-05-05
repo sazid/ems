@@ -23,11 +23,11 @@
             size="mini"
             placeholder="Type to search"/>
         </template>
-        <!-- <template slot-scope="scope">
+        <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        </template> -->
+            @click="handleView(scope.$index, scope.row)">View</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -46,12 +46,12 @@ export default {
     }
   },
   methods: {
-    handleEdit(index, row) {
+    handleView(index, row) {
       // console.log(index, row);
       this.$router.push({
-        name: 'faculty_save_exam',
+        name: 'student_exam',
         params: {
-          examProp: row,
+          exam_id: row.id,
         }
       });
     },

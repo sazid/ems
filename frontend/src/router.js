@@ -106,11 +106,12 @@ const router = new Router({
           beforeEnter: (to, from, next) => { userRouteGuard('student', next) }   
         },
         {
-          path: 'student_exam',
+          path: 'student/exam/:exam_id',
           name: 'student_exam',
           component: () => import(/* webpackChunkName: "student_exam" */ './views/user/Student/Exam.vue'),
           beforeEnter: (to, from, next) => { userRouteGuard('student', next) }   
         },
+
         {
           path: 'about',
           name: 'about',

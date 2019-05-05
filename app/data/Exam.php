@@ -2,7 +2,7 @@
 require_once('db.php');
 
 class Exam {
-    public static function getExamById(number $id) {
+    public static function getExamById($id) {
         $db = new DbManager();
         return $db->select('exam', "id='$id'");
     }

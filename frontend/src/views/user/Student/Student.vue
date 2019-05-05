@@ -1,8 +1,5 @@
 <template>
   <div id="student">
-    <h1>Student view</h1>
-    <el-button @click="exam" type="warning">Goto ongoing Exam</el-button>
-
     <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="12">
         <div class="grid-content bg-purple">
@@ -42,11 +39,6 @@ export default {
   },
   data() {
     return {
-    }
-  },
-  methods: {
-    exam() {
-      this.$router.push({ name: 'student_exam' });
     }
   },
 }

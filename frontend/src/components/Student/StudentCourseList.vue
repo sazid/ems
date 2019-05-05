@@ -26,11 +26,11 @@
             size="mini"
             placeholder="Type to search"/>
         </template>
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <el-button
             size="mini"
             @click="handleView(scope.$index, scope.row)">View</el-button>
-        </template>
+        </template> -->
       </el-table-column>
     </el-table>
   </div>
