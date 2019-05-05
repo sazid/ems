@@ -8,20 +8,24 @@ Demo usernames and passwords
 | sazid    | sazid    |
 | alamin   | alamin   |
 
-...
+Demo (click to play):
+[![Demo video](http://img.youtube.com/vi/KIqVNJRba_Y/0.jpg)](http://www.youtube.com/watch?v=KIqVNJRba_Y "Exam Management System")
 
 ## Build Instructions
 
 1. Install `node` and `npm` from [https://nodejs.org/](https://nodejs.org/)
-2. Run `npm install` from `frontend` directory
-3. Run `vue ui` and open the url provided by the command. (It
+2. Install `vue-cli` by running `npm install -g @vue/cli`
+3. Run `npm install` from `frontend` directory
+4. Run `vue ui` and open the url provided by the command. (It
     should automatically open a browser).
-4. Navigate to `Tasks` section from left side bar
-5. Select `build` option
-6. Click on **Parameters** button and set `Output directory` to `../dist`.
+5. Navigate to `Tasks` section from left side bar
+6. Select `build` option
+7. Click on **Parameters** button and set `Output directory` to `../dist`.
     Also enable `Watch for changes` option at the bottom.
-7. Save and click on **Run Task** button to build the project.
-8. Navigate to `https://localhost/ems/` to view the project
+8. Save and click on **Run Task** button to build the project.
+9. Go to `https://localhost/phpmyadmin` and create a database named `ems`.
+10. Import `ems.sql` file into the database.
+11. Navigate to `https://localhost/ems/` to view the project
 
 ## Developer
 
