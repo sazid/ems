@@ -33,6 +33,7 @@
 
 <script>
 import { baseUrlForRoute } from '@/router';
+import 'highlight.js/styles/atom-one-light.css';
 import axios from '@/plugins/axios';
 
 export default {
