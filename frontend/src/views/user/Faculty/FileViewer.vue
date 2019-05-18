@@ -22,7 +22,7 @@
               <span>Contents</span>
             </div>
             <div>
-              <pre v-highlightjs="file_contents"><code class="c++"></code></pre>
+              <pre v-highlightjs="file_contents"><code></code></pre>
             </div>
           </el-card>
         </div>
