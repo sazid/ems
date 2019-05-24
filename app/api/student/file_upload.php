@@ -15,6 +15,11 @@ $response = [
     'file_name' => $file_name
 ];
 
+// Check if uploads directory exists, if not make one
+if (!file_exists($target_dir)) {
+    mkdir($target_dir, 0777, true);
+}
+
 if (move_uploaded_file($_FILES['file']['tmp_name'], $file_path)) {
     $response['success'] = true;
 }
