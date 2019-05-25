@@ -16,8 +16,10 @@
 
               <div style="margin-top: 25px">
                <el-date-picker
-                  v-model="datetime_range"
+                  v-model="exam.duration"
                   type="datetimerange"
+                  format="yyyy/MM/dd HH:mm A"
+                  value-format="yyyy/MM/dd HH:mm A"
                   range-separator="To"
                   start-placeholder="Start"
                   end-placeholder="End">
@@ -73,8 +75,8 @@ export default {
       // this.examn = this.examProp;
       this.exam.id = this.examProp.id;
       this.exam.name = this.examProp.name;
-      this.exam.start = new Date(this.examProp.start);
-      this.exam.end = new Date(this.examProp.end);
+      this.exam.duration[0] = new Date(this.examProp.start);
+      this.exam.duration[1] = new Date(this.examProp.end);
     }
   },
   
@@ -85,8 +87,7 @@ export default {
         id: -1,
         name: '',
         course_id: this.$route.params.course_id,
-        start: new Date(),
-        end: new Date(),
+        duration: [new Date(), new Date()],
         questions: [],
       },
     };
@@ -118,8 +119,8 @@ export default {
       axios.post(`${baseUrlForRoute}/faculty/save_exam.php`, qs.stringify({
         id: this.exam.id,
         name: this.exam.name,
-        start: this.datetime_range[0],
-        end: this.datetime_range[1],
+        start: this.exam.duration[0],
+        end: this.exam.duration[1],
         course_id: this.$route.params.course_id,
         questions: this.exam.questions || [],
       })).then((response) => {
@@ -166,7 +167,7 @@ export default {
       if (this.exam.name.length < 3) {
         this.err('Exam name cannot be less than 3 characters');
         return false;
-      } else if (this.datetime_range[0] >= this.datetime_range[1]) {
+      } else if (this.exam.duration[0] >= this.exam.duration[1]) {
         this.err('Invalid start or end time.');
         return false;
       }
