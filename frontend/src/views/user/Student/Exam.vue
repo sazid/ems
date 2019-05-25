@@ -45,6 +45,7 @@
             :on-preview="handlePreview"
             :on-remove="handleRemove"
             :before-remove="beforeRemove"
+            :on-change="onFileChange"
             :multiple="false"
             :limit="1"
             :on-exceed="handleExceed"
@@ -116,13 +117,11 @@ export default {
       return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
     },
 
-    onFileChange(e, row) {
-      let files = e.target.files || e.dataTransfer.files;
-      if (files.length == 0 || files.length > 1)
+    onFileChange(file, fileList) {
+      if (!file || !file.response || !file.response.success)
         return;
 
-      console.log(e);
-      console.log(row);
+      console.log(file.response.file_name);
     },
 
     onOptionChange(o, row) {
