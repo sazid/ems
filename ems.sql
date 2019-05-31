@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2019 at 09:29 AM
+-- Generation Time: May 31, 2019 at 08:28 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -100,9 +100,23 @@ CREATE TABLE `exam` (
 
 INSERT INTO `exam` (`id`, `name`, `start`, `end`, `course_id`) VALUES
 (33, 'First AI Exam', '2019-05-14 18:00:00', '2019-05-21 18:00:00', 4),
-(37, 'Hello Exam Two', '2019-05-13 18:00:00', '2019-05-21 18:00:00', 1),
+(37, 'Hello Exam Two', '2019-05-26 17:00:00', '2019-05-28 20:00:00', 1),
 (38, 'Test AI Exam', '2019-05-04 18:00:00', '2019-05-05 18:00:00', 4),
 (40, 'Exam with 2 questions', '2019-05-06 18:00:00', '2019-05-14 18:00:00', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marks`
+--
+
+CREATE TABLE `marks` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `mark` double NOT NULL,
+  `submission_id` int(11) NOT NULL,
+  `exam_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -152,10 +166,10 @@ INSERT INTO `question_set` (`id`, `exam_id`, `question_id`) VALUES
 (19, 33, 7),
 (25, 40, 7),
 (26, 40, 11),
-(27, 37, 2),
-(28, 37, 3),
-(29, 37, 6),
-(30, 37, 1);
+(71, 37, 1),
+(72, 37, 2),
+(73, 37, 3),
+(74, 37, 6);
 
 -- --------------------------------------------------------
 
@@ -172,6 +186,17 @@ CREATE TABLE `submission` (
   `question_id` int(11) NOT NULL,
   `exam_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `submission`
+--
+
+INSERT INTO `submission` (`id`, `type`, `value`, `submission_time`, `user_id`, `question_id`, `exam_id`) VALUES
+(7, 'descriptive', 'Hello World, Descriptive answer', '2019-05-31 08:15:00', 2, 1, 37),
+(8, 'mcq', 'B', '2019-05-31 08:15:00', 2, 2, 37),
+(9, 'file', '1559283116.jpg', '2019-05-31 08:15:00', 2, 3, 37),
+(10, 'mcq', 'D', '2019-05-31 08:15:35', 2, 2, 37),
+(11, 'mcq', 'B', '2019-05-31 08:15:35', 2, 6, 37);
 
 -- --------------------------------------------------------
 
@@ -220,13 +245,14 @@ CREATE TABLE `user_course_map` (
 --
 
 INSERT INTO `user_course_map` (`id`, `user_id`, `course_id`) VALUES
-(19, 3, 1),
-(20, 2, 1),
-(21, 15, 1),
 (23, 3, 4),
 (24, 7, 4),
 (25, 16, 2),
-(26, 2, 2);
+(26, 2, 2),
+(27, 3, 1),
+(28, 16, 1),
+(29, 2, 1),
+(30, 15, 1);
 
 --
 -- Indexes for dumped tables
@@ -251,6 +277,14 @@ ALTER TABLE `course`
 ALTER TABLE `exam`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_exam_course_id` (`course_id`);
+
+--
+-- Indexes for table `marks`
+--
+ALTER TABLE `marks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_marks_submission_id` (`submission_id`),
+  ADD KEY `fk_marks_exam_id` (`exam_id`);
 
 --
 -- Indexes for table `question`
@@ -315,6 +349,12 @@ ALTER TABLE `exam`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
+-- AUTO_INCREMENT for table `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
@@ -324,13 +364,13 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `question_set`
 --
 ALTER TABLE `question_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `submission`
 --
 ALTER TABLE `submission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -342,7 +382,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_course_map`
 --
 ALTER TABLE `user_course_map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
@@ -359,6 +399,13 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `exam`
   ADD CONSTRAINT `fk_exam_course_id` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`);
+
+--
+-- Constraints for table `marks`
+--
+ALTER TABLE `marks`
+  ADD CONSTRAINT `fk_marks_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`),
+  ADD CONSTRAINT `fk_marks_submission_id` FOREIGN KEY (`submission_id`) REFERENCES `submission` (`id`);
 
 --
 -- Constraints for table `question`
