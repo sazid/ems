@@ -16,17 +16,18 @@
       style="width: 100%">
       <el-table-column type="expand">
       <template slot-scope="props">
-        <el-radio
-          v-if="props.row.type === 'mcq'"
-          v-for="(o, index) in props.row.options"
-          :key="o.value"
-          :label="o.value"
-          @change="onOptionChange(o, props.row)"
-          v-model="props.row.submission.value">
+        <div style="margin-top: 15px" v-if="props.row.type === 'mcq'">
+          <el-radio
+            v-for="(o, index) in props.row.options"
+            :key="o.value"
+            :label="o.value"
+            @change="onOptionChange(o, props.row)"
+            v-model="props.row.submission.value">
 
-          {{ o.value }}
+            {{ o.value }}
 
-        </el-radio>
+          </el-radio>
+        </div>
 
         <div style="margin-top: 15px" v-if="props.row.type === 'descriptive'">
           <el-input
@@ -46,6 +47,7 @@
             :on-remove="handleRemove"
             :before-remove="beforeRemove"
             :on-change="onFileChange"
+            :data="{question_id: props.row.id}"
             :multiple="false"
             :limit="1"
             :on-exceed="handleExceed"
@@ -68,7 +70,7 @@
       <el-table-column
         align="right">
         <template slot="header" slot-scope="scope">
-          <el-button type="primary" size="small">Submit</el-button>
+          <el-button type="primary" size="small" @click="save">Submit</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -78,6 +80,7 @@
 <script>
 import { baseUrlForRoute } from '@/router';
 import axios from '@/plugins/axios';
+import qs from 'qs';
 
 export default {
   data() {
@@ -113,20 +116,42 @@ export default {
       this.$message.warning(`You can only upload 1 file for each question`);
     },
 
-    beforeRemove(file, fileList) {
-      return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
+    beforeRemove(file, fileList, data) {
+      return this.$confirm(`Cancel the transfert of ${ file.name }?`);
     },
 
     onFileChange(file, fileList) {
       if (!file || !file.response || !file.response.success)
         return;
 
-      console.log(file.response.file_name);
+      let requestQuestionId = file.response.question_id;
+      let fileName = file.response.file_name;
+
+      this.questions.forEach(question => {
+        if (question.id == requestQuestionId) {
+          question.submission.value = fileName;
+        }
+      });
     },
 
     onOptionChange(o, row) {
       console.log(o);
       console.log(row);
+    },
+
+    save() {
+      let submissions = [];
+      this.questions.forEach(question => {
+        if (question.submission.value) {
+          submissions.push(question.submission);
+        }
+      });
+
+      axios.post(`${baseUrlForRoute}/student/save_submission.php`, qs.stringify({
+        submissions: submissions,
+      })).then((response) => {
+        console.log(response);
+      });
     },
 
     loadExam() {
@@ -146,7 +171,6 @@ export default {
             submission: {
               type: this.questions[i].type,
               value: '',
-              files: [],
               submission_time: new Date(),
               user_id: '',
               exam_id: this.exam.id,
@@ -163,7 +187,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>

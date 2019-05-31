@@ -12,7 +12,8 @@ $file_path = $target_dir . $file_name;
 
 $response = [
     'success' => false,
-    'file_name' => $file_name
+    'file_name' => $file_name,
+    'question_id' => $_POST['question_id']
 ];
 
 // Check if uploads directory exists, if not make one
